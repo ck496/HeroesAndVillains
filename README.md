@@ -1,21 +1,21 @@
-#HeroesAndVillains 
+# HeroesAndVillains 
 
 Universe for Heroes and Villains with characters, cities, liars and battle grounds. 
 Heroes and Villains battle for the for the fate of the Universe.
 
-##Design patterns
+## Design patterns
 The listed patterns will work together one will handle the creational aspect of things and the other will handle the behaviors and communications between objects. 
 
-###Builder:
+### Builder:
  will be responsible of character and environment creation. Step by step creation of different complex objects within the universe
  
- ###Chain of Responsibilities: 
+ ### Chain of Responsibilities: 
 * Will handle all the interactions/communications between characters.
 * Dialog, battle, attack, post-fight interactions will ala be handled with chain of responsibilities design
 * Issue interactions with several objects without specifying the receiver explicitly.
 
 
-##Requirements 
+## Requirements 
 The Design Patterns in the **bold** will handle the responsibilities listed after the **:**
 * **Builder:** On Earth, there exists many cities where villains live and "spawn".
 * **Builder:** New hot spots can spawn when one city gets too large. You need at least one city when your simulation starts.
