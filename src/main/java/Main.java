@@ -1,7 +1,16 @@
 package main.java;
 
-public class Main {
+/**
+ * Main Class of the HeroesAndVillans project.
+ * @author chris
+ *
+ */
 
+public class Main {
+    /**
+     * Main function.
+     * @param args String
+     */
     public static void main(String[] args) {
         System.out.println("Welcome to the Heros and Villans Universe! "
                 + "\n\nWhich side will you choose?? \nWho will emerge "
