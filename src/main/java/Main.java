@@ -17,8 +17,15 @@ public class Main {
                 + "victorious? \nWhat will be the fate of the universe?"
                 + "\n\nFind out soon..........");
         
+        Character ch = new Character.Builder().isHero(true).constructCharacter();
+        ch.print();
+        
+        Character ch2 = new Character.Builder().isHero(false).constructCharacter();
+        ch2.print();
         
 
     }
+    
+    
 
 }
