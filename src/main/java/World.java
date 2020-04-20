@@ -1,8 +1,9 @@
 package main.java;
 
 public class World {
-    private String name;
     
+    private String name;
+    //Vector<Charecter>  
     public World(String name) {
         this.name=name;
     }
