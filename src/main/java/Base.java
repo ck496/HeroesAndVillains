@@ -36,8 +36,16 @@ public class Base {
     /**
      * @param members the members to set
      */
-    public void setMembers(Vector<Character> members) {
-        this.members = members;
+    public void setMembers(Vector<Character> chArr) {
+        for(Character ch : chArr) {
+            Character newCharacter = new Character.Builder().isHero(ch.isHero())
+                                   .setName(ch.getName()).setState(ch.getState())
+                                   .setLevel(ch.getLevel()).setPower(ch.getPower())
+                                   .constructCharacter();
+            this.members.add(newCharacter);
+        }
+
+        
         this.totalMembers = members.size();
     }
 
@@ -97,10 +105,39 @@ public class Base {
             throw new IllegalArgumentException("Villian cant be added to a Heros Base");
         }
         
+        Character newCharacter = new Character.Builder().isHero(ch.isHero())
+                .setName(ch.getName()).setState(ch.getState())
+                .setLevel(ch.getLevel()).setPower(ch.getPower())
+                .constructCharacter();
+        this.members.add(newCharacter);
         this.members.add(ch);
         this.totalMembers++;
        
     }
+    
+    /**
+     * Function used to split up base as members are greater than 5
+     * @return
+     * @throws Exception
+     */
+    public Vector<Character> getSplitMembers() throws Exception{
+        removeDead();
+        if(totalMembers < 5) {
+            throw new Exception("Exception: Cant split, not full yet");
+        }
+        
+        Vector<Character> splitMembers = new Vector<Character>();
+        for(int i=0; i<3; i++) {
+            Character splitCharacter = new Character.Builder().isHero(members.elementAt(0).isHero())
+                    .setName(members.elementAt(0).getName()).setState(members.elementAt(0).getState())
+                    .setLevel(members.elementAt(0).getLevel()).setPower(members.elementAt(0).getPower())
+                    .constructCharacter();
+            splitMembers.add(splitCharacter);
+            members.remove(0);
+            totalMembers--;
+        }
+        return splitMembers;
+        }
     
     
     /**
@@ -164,8 +201,9 @@ public class Base {
     
     
     /**
-     * Gets the strongest.
-
+     * Gets the strongest. Returns a reference to 
+     * the actual member not a copy. So outside 
+     * change affects inside member
      * @return strongest
      */
     public Character getStrongestMember() {
@@ -187,8 +225,9 @@ public class Base {
     }
     
     /**
-     * Gets the Weakest.
-
+     *Gets the Weakest. Returns a reference to 
+     * the actual member not a copy. So outside 
+     * change affects inside member
      * @return Weakest
      */
     public Character getWeakestMember() {
@@ -278,7 +317,11 @@ public class Base {
          * @return Builder
          */
         public Builder addMemeber(Character ch) {
-            this.members.add(ch);
+            Character newCharacter = new Character.Builder().isHero(ch.isHero())
+                    .setName(ch.getName()).setState(ch.getState())
+                    .setLevel(ch.getLevel()).setPower(ch.getPower())
+                    .constructCharacter();
+            this.members.add(newCharacter);
             return this;
         }
 

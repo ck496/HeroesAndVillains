@@ -96,9 +96,7 @@ public class Character {
         if(health == 0) {
             this.state = "Dead";
             this.level = 0;
-            System.out.println("R.I.P " + this.name + ", You "
-                    + "have fought the good fight,"
-                    + "\nYou will be avenged!");
+            System.out.println(this.name + "Health = 0, State = Dead");
         }
         this.health = health;
     }
