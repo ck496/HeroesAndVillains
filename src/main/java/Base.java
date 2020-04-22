@@ -113,6 +113,7 @@ public class Base {
         this.members.add(ch);
         this.totalMembers++;
        
+       
     }
     
     /**
@@ -247,22 +248,37 @@ public class Base {
         return weakest;
     }
     
+    /**
+     * Returns a vector of the memeber names.
+     * @return memberNames 
+     */
+    public Vector<String> getMemeberNames(){
+        if(totalMembers == 0) {
+            throw new NoSuchElementException("Exception: Cant get member names,"
+                    + " 0 memebers in base");
+        }
+        Vector<String> memberNames = new Vector<String>();
+        for(Character ch: members) {
+            memberNames.add(ch.getName());
+        }
+        return memberNames;
+    }
+    
     
     public void print() {
-        System.out.println("---- Base Detials ----");
-        System.out.println("\t[Name]: " + this.name + "\n\t[State]: " 
+  
+        System.out.println("[Name]: " + this.name + "\n\t[State]: " 
                         + this.state + "\n\t[Total Memebrs]: " + this.totalMembers 
-                        + "\n\t[Memeber Detils]: ");
-        if(totalMembers!=0) {
-            int i=0;
-            for(Character ch :members) {
-                i++;
-                System.out.println("\n         [MEMBER " +i +"]");
-                ch.print();
+                        + "\n\t--Memeber Detils-- ");
+        try {
+            Vector<String> memberNames = getMemeberNames();
+            int counter = 0;
+            for(String name : memberNames) {
+                counter++;
+                System.out.println("\t[" + counter + "]: " + name);
             }
-        }
-        else {
-            System.out.println("0 memebers");
+        }catch (NoSuchElementException e) {
+            System.out.println("0 memebers in this base");
         }
     }
 

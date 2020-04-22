@@ -95,6 +95,18 @@ public class World {
     }
     
     /**
+     * Get vector of Member names;
+     * @return
+     */
+    public Vector<String> getBaseNames(){
+        Vector<String> baseNames = null;
+        for(Base b: baseVector) {
+            baseNames.add(b.getName());
+        }
+        return baseNames;
+    }
+    
+    /**
      * 
      * @param baseName
      * @return
@@ -106,22 +118,21 @@ public class World {
                 base = b;
             }
         }
-        
         if(base == null) {
              throw new NoSuchElementException("Exception: No Base with the name" +  baseName);
         }
         
         return base;
     }
-
     
-
-
-
-
-
-
-
+    public void print() {
+        System.out.println("[World Name]: " + this.name + "\n\t[State]: " + this.state
+                        + "\n\t[Open Bases]: " + totalOpen + "\n\t---Base Details---");
+        for(Base b : baseVector) {
+            b.print();
+        }
+    }
+    
 
     /**
      * Constructs the base objects using builder pattern
@@ -185,6 +196,7 @@ public class World {
             }
             return this;
         }
+                
         
         //Private helper functions
         
@@ -192,7 +204,7 @@ public class World {
          * Adds empty bases to the vector if empty
          */
         private void fillBaseVector() {
-            while(totalOpen < 4) {
+            while(baseVector.size() < 4) {
                 Base newBase = new Base.Builder().setName("Base " 
                             + Integer.toString(totalOpen+1)).setState("Open")
                         .baseConstruct();

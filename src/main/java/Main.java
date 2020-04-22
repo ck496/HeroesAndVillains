@@ -39,10 +39,10 @@ public class Main {
        // base.print();
 //        Character strong = base.getStrongestMember();
           Character weak = base.getWeakestMember();
-          weak.setHealth(0);
+//          weak.setHealth(0);
 //        base.removeMember(weak.getName(), weak.getPower());
 //        base.removeMember(strong.getName(), strong.getPower());
-//        System.out.println("\n\nAfter Remove");
+//        System.out.println("fn\nAfter Remove");
 //        base.print();
        
 //        try {
@@ -67,9 +67,12 @@ public class Main {
 //         System.out.println("------------Renovated");
 //         ch3.setHealth(0);
          System.out.println("\n\n");
-         base.print();
+         //base.print();
          //System.out.println(heroVector);
-      
+         World aWorld = new World.Builder().setName("MyWorld1")
+                 .addBase(base).worldConstruct();
+         
+         aWorld.print();
 
         
 

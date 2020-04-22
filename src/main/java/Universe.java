@@ -68,8 +68,10 @@ public class Universe {
     
     public void addWorld(World aWorld) {
         if(!isWorldInUniverse(aWorld.getName())) {
-          worldMap.put(aWorld.getName(), aWorld);
-        }
+            World newWorld = new World.Builder().setName(aWorld.getName())
+                    .setbaseVector(aWorld.getbaseVector())  
+                    .worldConstruct();
+            this.worldMap.put(newWorld.getName(), newWorld);        }
         else {
             System.out.println("Cant add '"+aWorld.getName()+"', since it already exists");
         }
@@ -103,7 +105,18 @@ public class Universe {
         public Builder setWorldMap(HashMap<String, World> aWorldMap) {
             this.worldMap = aWorldMap;
             return this;
+        }  
+        
+        public Builder addWorld(World aWorld) {
+            World newWorld = new World.Builder().setName(aWorld.getName())
+                    .setbaseVector(aWorld.getbaseVector())  
+                    .worldConstruct();
+            this.worldMap.put(newWorld.getName(), newWorld);
+            return this;
+            
         }
+        
+        
         public Universe constrUniverse() {
             return new Universe(this);
         }
