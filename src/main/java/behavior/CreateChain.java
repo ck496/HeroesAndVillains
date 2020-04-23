@@ -22,6 +22,8 @@ public class CreateChain implements Chain {
         Random random = new Random();
         int newPoints = 0;
 
+        System.out.println("\n\n\t\t\t[CREATE-CHAIN]\n");
+
         for (Base b : baseVector) {
             if (b.getActionState().equals("Create") && b.getPoints() >= 50) {
                 // need at least 4 members to fight
@@ -89,10 +91,10 @@ public class CreateChain implements Chain {
             }
 
         }
-
-        // Send to FightChain
-        nextChain.doWork(aWorld);
-        // System.out.println("\n\nCREATE CHAIN DONE SEND TO NEXT");
+        System.out.println("\n\n[Create-CHAIN] Current Status: ");
+        aWorld.print("");
+        System.out.println("\nSending to FigetChain\n");
+        this.nextChain.doWork(aWorld);
     }
 
     // Helper functions

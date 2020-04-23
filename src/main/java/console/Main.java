@@ -32,10 +32,10 @@ public class Main {
 
         Vector<Character> villainVector = new Vector<Character>(5);
         villainVector.add(ch);
-//        villainVector.add(ch2);
-//        villainVector.add(ch3);
-//        villainVector.add(ch4);
-//        villainVector.add(ch5);
+        villainVector.add(ch2);
+        villainVector.add(ch3);
+        villainVector.add(ch4);
+        villainVector.add(ch5);
 
         // BADGUYS
         String name = "Thanos";
@@ -66,9 +66,17 @@ public class Main {
                 .setMemberVector(heroVector)
                 .baseConstruct();
 
+        Base alpha = new Base.Builder().setName("Alpha")
+                .baseConstruct();
+
+        Base omega = new Base.Builder().setName("Omega")
+                .baseConstruct();
+
         Vector<Base> worldBase0 = new Vector<Base>();
         worldBase0.add(thanos);
         worldBase0.add(avengers);
+        worldBase0.add(alpha);
+        worldBase0.add(omega);
 
         // Create World
         World aWorld = new World.Builder().setName("Nebula")
@@ -83,9 +91,14 @@ public class Main {
         Chain workChain = new WorkChain();
         Chain createChain = new CreateChain();
         Chain fightChain = new FightChain();
+        Chain recoverChain = new RecoverChain();
+        Chain exitChain = new ExitChain();
 
         workChain.setNextChain(createChain);
         createChain.setNextChain(fightChain);
+        fightChain.setNextChain(recoverChain);
+        recoverChain.setNextChain(exitChain);
+        exitChain.setNextChain(workChain);
 
         try {
             workChain.doWork(aWorld);

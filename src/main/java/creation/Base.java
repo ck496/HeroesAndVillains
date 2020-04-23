@@ -193,10 +193,14 @@ public class Base {
                 ch.print("");
             }
         }
-        if (hasDead) {
-            print("Base After Remove Dead: \n");
-        } else {
-            System.out.println("No Dead members in " + this.name);
+//        if (hasDead) {
+//            print("Removed the Dead \n");
+//        } else {
+//            System.out.println("No Dead members in " + this.name);
+//        }
+
+        if (this.totalMembers == 0) {
+            this.state = "Open";
         }
 
     }
@@ -228,6 +232,10 @@ public class Base {
         if (!inBase) {
             throw new NoSuchElementException("No member with the name '" + name
                     + "' and power: '" + power + "' exists in " + this.name);
+        }
+
+        if (this.totalMembers == 0) {
+            this.state = "Open";
         }
     }
 
@@ -293,7 +301,8 @@ public class Base {
     public void print(String s) {
 
         System.out.println(s + "[Base Name]: " + this.name + "\n" + s + "[State]: "
-                + this.state + "\n" + s + "[Total Memebrs]: " + this.totalMembers
+                + this.state + "\n" + s + "[Action State]: "
+                + this.actionState + "\n" + s + "[Total Memebrs]: " + this.totalMembers
                 + "\n" + s + "--Memeber Detils-- ");
         try {
 //            int counter = 0;

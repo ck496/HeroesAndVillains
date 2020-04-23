@@ -23,6 +23,8 @@ public class FightChain implements Chain {
         Random random = new Random();
         int newPoints = 0;
 
+        System.out.println("\n\n\t\t\t[FIGHT-CHAIN]\n");
+
         for (Base b : baseVector) {
             if (b.getActionState().equals("Fight")) {
                 // Create a vector of enemy basses to choose from
@@ -58,10 +60,10 @@ public class FightChain implements Chain {
 
             }
         }
-        System.out.println("\n\nSending to RecoverChain\n");
+        System.out.println("\n\n[FIGHT-CHAIN] Current Status: ");
         aWorld.print("");
-        // this.nextChain.doWork(aWorld);
-
+        System.out.println("\nSending to RecoverChain\n");
+        this.nextChain.doWork(aWorld);
     }
 
     private void beginBattle(Base base, Base enemyBase) {
@@ -168,12 +170,25 @@ public class FightChain implements Chain {
 
             index++;
         }
+        // Done Looping
+        // Set Action state to recover so bases that fought can recover
+        base.setActionState("Recover");
+        enemyBase.setActionState("Recover");
+
+        // Remove dead
         try {
             base.removeDead();
             enemyBase.removeDead();
         } catch (Exception e) {
             System.out.println("[Exception] in FightChain: " + e.getMessage());
         }
+        // Level up the fighter by 1
+        baseMembers = base.getMembers();
+        for (Character ch : baseMembers) {
+            int level = ch.getLevel() + 1;
+            ch.setLevel(level);
+        }
+
     }
 
 }

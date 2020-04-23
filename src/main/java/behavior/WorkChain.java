@@ -29,6 +29,8 @@ public class WorkChain implements Chain {
         // int numKileld = 0;
         Random random = new Random();
 
+        System.out.println("\n\n\t\t\t[WORK-CHAIN]\n");
+
         while (!switchChain) {
             for (Base b : baseVector) {
                 if (b.getActionState().equals("Work") && !b.getState().equals("Open")) {
@@ -58,7 +60,9 @@ public class WorkChain implements Chain {
                 }
             }
         }
-
+        System.out.println("\n\n[WORK-CHAIN]Current Status: ");
+        aWorld.print("");
+        System.out.println("\nSending to CreateChain\n");
         this.nextChain.doWork(aWorld);
     }
 
