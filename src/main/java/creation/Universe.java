@@ -26,112 +26,109 @@ public class Universe {
         this.name = builder.name;
         this.worldMap = builder.worldMap;
     }
+
     /**
      * gets the name of the universe
+     * 
      * @return name
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * gets the worlds vector
+     * 
      * @return
      */
     public HashMap<String, World> getWorldMap() {
         return worldMap;
     }
-    
+
     public Iterable<String> getWorldNames() {
-        Iterable<String> worldNames =  worldMap.keySet();
+        Iterable<String> worldNames = worldMap.keySet();
         return worldNames;
     }
-    
-    
+
     public boolean isWorldInUniverse(String worldName) {
-        if (worldMap.size() ==0) {
+        if (worldMap.size() == 0) {
             return false;
-        }
-        else {
-            return worldMap.containsKey(worldName); 
+        } else {
+            return worldMap.containsKey(worldName);
         }
     }
-    
+
     public World getWorld(String worldName) {
-        //World aWorld = null;
-        if(!isWorldInUniverse(worldName)) {
-          throw new NoSuchElementException("Cant get '" +worldName + "', not in worldMap");
+        // World aWorld = null;
+        if (!isWorldInUniverse(worldName)) {
+            throw new NoSuchElementException("Cant get '" + worldName + "', not in worldMap");
         }
-       
-        return  worldMap.get(worldName);
+
+        return worldMap.get(worldName);
     }
-    
-    
+
     public void addWorld(World aWorld) {
-        if(!isWorldInUniverse(aWorld.getName())) {
+        if (worldMap.size() >= 5) {
+            throw new ArrayIndexOutOfBoundsException("Exception in Universe:"
+                    + "Universe can only have 5 worlds");
+        }
+        if (!isWorldInUniverse(aWorld.getName())) {
             World newWorld = new World.Builder().setName(aWorld.getName())
-                    .setbaseVector(aWorld.getBaseVector())  
+                    .setbaseVector(aWorld.getBaseVector())
                     .worldConstruct();
-            this.worldMap.put(newWorld.getName(), newWorld);        }
-        else {
-            System.out.println("Cant add '"+aWorld.getName()+"', since it already exists");
+            this.worldMap.put(newWorld.getName(), newWorld);
+        } else {
+            System.out.println("Cant add '" + aWorld.getName() + "', since it already exists");
         }
     }
-    
+
     public void removeWorld(String worldName) {
-        if(!isWorldInUniverse(worldName)) {
-            throw new NoSuchElementException("Cant remove '" +worldName + "', not in worldMap");
-        }
-        else {
+        if (!isWorldInUniverse(worldName)) {
+            throw new NoSuchElementException("Cant remove '" + worldName + "', not in worldMap");
+        } else {
             worldMap.remove(worldName);
             System.out.println("Removed '" + worldName + "' from " + this.name);
         }
     }
-    
+
     public void print() {
-        System.out.println("Universe Name: " + this.name 
+        System.out.println("Universe Name: " + this.name
                 + "\n\tWorlds: " + getWorldNames() + "\n\t---World Detials---");
-        
-        Iterable<String> names = getWorldNames(); 
-        
-        for(String name : names) {
+
+        Iterable<String> names = getWorldNames();
+
+        for (String name : names) {
             worldMap.get(name).print("\t");
             System.out.println();
         }
     }
-    
-    public static class Builder{
+
+    public static class Builder {
         private String name;
         private HashMap<String, World> worldMap = new HashMap<String, World>();
-        
-        public Builder setUniverseName(String aName) {
+
+        public Builder setName(String aName) {
             this.name = aName;
             return this;
         }
-        
+
         public Builder setWorldMap(HashMap<String, World> aWorldMap) {
             this.worldMap = aWorldMap;
             return this;
-        }  
-        
+        }
+
         public Builder addWorld(World aWorld) {
             World newWorld = new World.Builder().setName(aWorld.getName())
-                    .setbaseVector(aWorld.getBaseVector())  
+                    .setbaseVector(aWorld.getBaseVector())
                     .worldConstruct();
             this.worldMap.put(newWorld.getName(), newWorld);
             return this;
-            
+
         }
-        
-        
-        public Universe constrUniverse() {
+
+        public Universe universeConstruct() {
             return new Universe(this);
         }
     }
-    
-    
-    
-
 
 }
-

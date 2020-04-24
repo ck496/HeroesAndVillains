@@ -19,7 +19,6 @@ public class World {
     public String[] states = { "Secured", "Fallen", "At Risk" };
     private String name, state;
     private int totalOpen;
-    private int population;
     private Vector<Base> baseVector = new Vector<Base>(4);
 
     public World(Builder builder) {
@@ -27,7 +26,6 @@ public class World {
         this.setState(builder.state);
         this.totalOpen = builder.totalOpen;
         this.baseVector = builder.baseVector;
-        this.population = builder.population;
     }
 
     /**
@@ -43,20 +41,6 @@ public class World {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * @return the population
-     */
-    public int getPopulation() {
-        return population;
-    }
-
-    /**
-     * @param population the population to set
-     */
-    public void setPopulation(int population) {
-        this.population = population;
     }
 
     /**
@@ -98,15 +82,19 @@ public class World {
      * @param baseVector the baseVector to set
      */
     public void setbaseVector(Vector<Base> aBaseVector) {
+        if (aBaseVector.size() != 4) {
+            throw new IndexOutOfBoundsException("Exception in World "
+                    + "setBaseVector(): IndexOutOFBounds");
+        }
+        this.baseVector.clear();
         for (Base b : aBaseVector) {
             Base newBase = new Base.Builder().setName(b.getName())
                     .setState(b.getState()).setMemberVector(b.getMembers())
                     .baseConstruct();
             this.baseVector.add(newBase);
-            if (newBase.getState().equals("Open")) {
-                totalOpen++;
-            }
+
         }
+        this.totalOpen = gettotalOpen();
     }
 
     /**
@@ -166,7 +154,6 @@ public class World {
     public static class Builder {
         private String name, state;
         private int totalOpen = 0;
-        private int population = 1000;
         private Vector<Base> baseVector = new Vector<Base>(4);
 
         /**
@@ -174,14 +161,6 @@ public class World {
          */
         public Builder setName(String name) {
             this.name = name;
-            return this;
-        }
-
-        /**
-         * @param totalOpen the totalOpen to set
-         */
-        public Builder setTotalOpen(int totalOpen) {
-            this.totalOpen = totalOpen;
             return this;
         }
 

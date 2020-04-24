@@ -193,11 +193,6 @@ public class Base {
                 ch.print("");
             }
         }
-//        if (hasDead) {
-//            print("Removed the Dead \n");
-//        } else {
-//            System.out.println("No Dead members in " + this.name);
-//        }
 
         if (this.totalMembers == 0) {
             this.state = "Open";
@@ -286,7 +281,7 @@ public class Base {
      * 
      * @return memberNames
      */
-    public Vector<String> getMemeberNames() {
+    public Vector<String> getMemberNames() {
         if (totalMembers == 0) {
             throw new NoSuchElementException("Exception: Cant get member names,"
                     + " 0 memebers in base");
