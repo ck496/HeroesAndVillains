@@ -77,6 +77,13 @@ public class World {
      * @return the totalOpen
      */
     public int gettotalOpen() {
+        int total = 0;
+        for (Base b : baseVector) {
+            if (b.getState() == "Open") {
+                total++;
+            }
+        }
+        this.totalOpen = total;
         return totalOpen;
     }
 

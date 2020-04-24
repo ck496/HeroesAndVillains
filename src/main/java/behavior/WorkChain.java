@@ -60,9 +60,8 @@ public class WorkChain implements Chain {
                 }
             }
         }
-        System.out.println("\n\n[WORK-CHAIN]Current Status: ");
-        aWorld.print("");
-        System.out.println("\nSending to CreateChain\n");
+
+        System.out.println("\nSending world " + aWorld.getName() + " to CreateChain\n");
         this.nextChain.doWork(aWorld);
     }
 

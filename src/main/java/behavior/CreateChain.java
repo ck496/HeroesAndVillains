@@ -21,6 +21,7 @@ public class CreateChain implements Chain {
         Vector<Base> baseVector = aWorld.getBaseVector();
         Random random = new Random();
         int newPoints = 0;
+        boolean fight = false;
 
         System.out.println("\n\n\t\t\t[CREATE-CHAIN]\n");
 
@@ -37,14 +38,15 @@ public class CreateChain implements Chain {
                     b.setPoints(newPoints);
                 } else {
                     // roll dice to fight(3) or create
-                    int diceRoll = random.nextInt(3 - 1 + 1) + 1;
-                    if (diceRoll == 3 || diceRoll == 2) {
+                    int diceRoll = random.nextInt(4 - 1 + 1) + 1;
+                    if (diceRoll == 4) {
                         // got the 3 so send to fight
                         System.out.println("\n\t\t    [ATTENTION:Fight] \n\tTeam " + b.getName()
                                 + " has a deiccded to FIGHT!!\n");
                         b.setActionState("Fight");
                         newPoints = b.getPoints() - 50;
                         b.setPoints(newPoints);
+                        fight = true;
                         break;
                     } else {
                         // Didn't get the chance to fight so create a new member
@@ -78,9 +80,9 @@ public class CreateChain implements Chain {
 
                             // 2.1) send to another another world in the universe if possible
                             if (sentToNewWorld) {
-                                System.out.println("-------------SEND TO ANOTHER WORLD---------"
-                                        + "\n\t Not Implemented");
-
+                                System.out.println("-------------SEND TO CREATED TO ANOTHER WORLD---------"
+                                        + "\n\t Not enough room in the base of this world");
+                                fight = true;
                             }
 
                         }
@@ -91,9 +93,11 @@ public class CreateChain implements Chain {
             }
 
         }
-        System.out.println("\n\n[Create-CHAIN] Current Status: ");
-        aWorld.print("");
-        System.out.println("\nSending to FigetChain\n");
+        if (!fight) {
+            System.out.println("\n\n[Create-CHAIN] Current Status: ");
+            aWorld.print("");
+        }
+        System.out.println("\nSending world " + aWorld.getName() + " to FightChain\n");
         this.nextChain.doWork(aWorld);
     }
 
@@ -112,10 +116,8 @@ public class CreateChain implements Chain {
             b.setActionState("Work");
             System.out.println("[ADD] : new member to Team " + b.getName()
                     + " from parent " + parent.getName());
-
+            System.out.println("[Base]: " + b.getName());
             ch.print("");
-            System.out.println();
-            b.print("");
             return true;
         } catch (Exception e) {
             System.out.println("[Exception] in CreateChain: " + e.getMessage());

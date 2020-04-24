@@ -22,6 +22,7 @@ public class FightChain implements Chain {
         Vector<Base> baseVector = aWorld.getBaseVector();
         Random random = new Random();
         int newPoints = 0;
+        Boolean fight = false;
 
         System.out.println("\n\n\t\t\t[FIGHT-CHAIN]\n");
 
@@ -45,6 +46,7 @@ public class FightChain implements Chain {
                     b.setPoints(b.getPoints() + 50);
                 } else if (baseVector.size() == 1) {
                     beginBattle(b, baseVector.get(0));
+                    fight = true;
                 } else {
                     // Pick the smallest one to battle in order to secure victory
                     // sort the vector of sizes and use index 0;
@@ -52,6 +54,7 @@ public class FightChain implements Chain {
                     for (Base enemyBase : enemyBases) {
                         if (enemyBase.getTotalMembers() == memberSizesVector.get(0)) {
                             beginBattle(b, enemyBase);
+                            fight = true;
                             break;
                         }
                     }
@@ -60,9 +63,12 @@ public class FightChain implements Chain {
 
             }
         }
-        System.out.println("\n\n[FIGHT-CHAIN] Current Status: ");
-        aWorld.print("");
-        System.out.println("\nSending to RecoverChain\n");
+        if (fight) {
+            System.out.println("\n\n[FIGHT-CHAIN] Current Status: ");
+            aWorld.print("");
+        }
+
+        System.out.println("\nSending world " + aWorld.getName() + " to RecoverChain\n");
         this.nextChain.doWork(aWorld);
     }
 
@@ -91,7 +97,8 @@ public class FightChain implements Chain {
             opponentHealth = opponent.getHealth();
             fighterHealth = fighter.getHealth();
 
-            System.out.println("\n_____________________________________________________________________\n"
+            System.out.println("\n_________________________________________________"
+                    + "_______________________________________\n"
                     + fighter.getName() + "\t-[Lvl]: " + fighter.getLevel()
                     + "  -[Health]: " + fighter.getHealth() + "\t-[Power]: "
                     + fighter.getPower() + "\t-[Weakness]: " + fighter.getWeakness());
@@ -100,13 +107,14 @@ public class FightChain implements Chain {
                     + opponent.getLevel() + "  -[Health]: " + opponent.getHealth()
                     + "\t-[Power]: " + opponent.getPower() + "\t[Weakness]: "
                     + opponent.getWeakness()
-                    + "\n_____________________________________________________________________\n");
+                    + "\n_________________________________________________________"
+                    + "_______________________________\n");
 
             // maxAttacks number of rounds per base member
             for (int j = 0; j < maxAttacks; j++) {
                 System.out.println("\n\t\t\t[Round " + (j + 1) + "]");
-                opponentMove = opponent.getLevel() * 3;
-                fighterMove = fighter.getLevel() * 3;
+                opponentMove = opponent.getLevel() * 2;
+                fighterMove = fighter.getLevel() * 2;
                 // 1) fighter's power is opponents weakness
                 if (fighter.getPower().equals(opponent.getWeakness())) {
                     // Double damage on fighters attacks
@@ -162,7 +170,7 @@ public class FightChain implements Chain {
 
                 fighter.setHealth(fighterHealth);
                 opponent.setHealth(opponentHealth);
-                System.out.println("\nEnd of Round " + j + 1 + " : \n" + fighter.getName() + "'s [Health]: "
+                System.out.println("\nEnd of Round " + (j + 1) + " : \n" + fighter.getName() + "'s [Health]: "
                         + fighter.getHealth() + "\n" + opponent.getName()
                         + "'s [Health]: " + opponent.getHealth() + "\n---------------------------------");
 
@@ -182,9 +190,14 @@ public class FightChain implements Chain {
         } catch (Exception e) {
             System.out.println("[Exception] in FightChain: " + e.getMessage());
         }
-        // Level up the fighter by 1
+        // Level up the members who fought anmd are alive by 1
         baseMembers = base.getMembers();
         for (Character ch : baseMembers) {
+            int level = ch.getLevel() + 1;
+            ch.setLevel(level);
+        }
+        enemyMembers = enemyBase.getMembers();
+        for (Character ch : enemyMembers) {
             int level = ch.getLevel() + 1;
             ch.setLevel(level);
         }

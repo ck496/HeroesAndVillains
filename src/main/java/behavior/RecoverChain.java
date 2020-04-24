@@ -19,14 +19,16 @@ public class RecoverChain implements Chain {
     public void doWork(World aWorld) {
         Vector<Base> baseVector = aWorld.getBaseVector();
         Vector<Character> memberVector;
+        boolean recover = false;
 
         System.out.println("\n\n\t\t\t[RECOVER-CHAIN]\n");
 
         for (Base b : baseVector) {
             if (b.getActionState().equals("Recover")) {
+                recover = true;
                 memberVector = b.getMembers();
                 for (Character ch : memberVector) {
-                    int health = ch.getHealth() + 20;
+                    int health = ch.getHealth() + 25;
                     if (health > 100 && ch.getLevel() <= 5) {
                         ch.setHealth(100);
                     } else if (health > 100 && ch.getLevel() > 5) {
@@ -37,13 +39,19 @@ public class RecoverChain implements Chain {
                 }
                 System.out.println("Recovered Team: " + b.getName());
                 b.print("\t");
+            } else {
+                System.out.println("\n\t\t\tNo memebers need to recover");
             }
             b.setActionState("Work");
 
         }
-        System.out.println("\n\n[RECOVER-CHAIN] Current Status: ");
-        aWorld.print("");
-        System.out.println("\nSending to ExitChain\n");
+
+        // Display status if changed happened
+        if (recover) {
+            System.out.println("\n\n[RECOVER-CHAIN] Current Status: ");
+            aWorld.print("");
+        }
+        System.out.println("\nSending to " + aWorld.getName() + " ExitChain\n");
         this.nextChain.doWork(aWorld);
     }
 

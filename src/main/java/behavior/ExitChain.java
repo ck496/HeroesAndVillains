@@ -23,21 +23,21 @@ public class ExitChain implements Chain {
         String state4 = baseVector.get(3).getState();
 
         System.out.println("\n\n\t\t\t[EXIT-CHAIN]\n");
-
+        // IF all the bases are one type (not open) then exit, no more battle
         if (state1.equals(state2) && state2.equals(state3) && state3.equals(state4)) {
             aWorld.setState(state1.equals("Base") ? "Secured" : "Fallen");
             System.out.println("\n\n\t\t\t" + aWorld.getName() + " is "
                     + aWorld.getState() + "!!");
             if (aWorld.getState().equals("Secured")) {
-                System.out.println("\n\n[Exit-CHAIN] Current Status: ");
+                System.out.println("\n\n[Exit-CHAIN] Final Status: ");
                 aWorld.print("");
                 System.out.println("\n\n\t\t\tThe Heros have once again triumphed "
                         + "the villans" + "\n\t\t\tand saved the fate of " + aWorld.getName()
-                        + "\n\n" + aWorld.getName() + "is Secure for now!");
+                        + "\n\n" + aWorld.getName() + " is Secure for now!");
                 System.out.println("\n\nExitting Chain for " + aWorld.getName() + "....");
 
             } else {
-                System.out.println("\n\n[Exit-CHAIN] Current Status: ");
+                System.out.println("\n\n[Exit-CHAIN] Final State: ");
                 aWorld.print("");
                 System.out.println("\n\n\t\t\tThe Heros fought the good fight but the"
                         + " Villians have defeated them....."
@@ -46,10 +46,7 @@ public class ExitChain implements Chain {
             }
         } else {
             System.out.println("\n\n\t\t\t" + aWorld.getName() + " is still At Risk, continue working");
-
-            System.out.println("\n\n[Exit-CHAIN] Current Status: ");
-            aWorld.print("");
-            System.out.println("\nSending to WorkChain\n");
+            System.out.println("\nSending world " + aWorld.getName() + "to WorkChain\n");
             this.nextChain.doWork(aWorld);
         }
 
