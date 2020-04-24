@@ -5,12 +5,15 @@ import java.util.NoSuchElementException;
 import java.util.Vector;
 
 /**
- * Universe class will be the universe in which heros and villians reside.
- * Universe has a name and a vector of worlds. Universe is created using the
- * builder pattern.
+ * Universe class will be the universe in which heros and villains reside.
+ * Universe has a name and a HashMap of all the worlds.
+ * 
+ * BUILDER DESIGN PATTERN is used to provide a better and more flexible approach
+ * to object creation. Allows you to create objects with or without manual entry
+ * of all the instance variables
  * 
  * @author Chris Kurian
- *
+ * @version 1.0
  */
 public class Universe {
 

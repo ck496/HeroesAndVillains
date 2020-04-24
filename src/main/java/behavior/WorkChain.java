@@ -1,27 +1,55 @@
 package main.java.behavior;
 
+import main.java.creation.Base;
+import main.java.creation.World;
 import java.util.Random;
 import java.util.Vector;
 
-import main.java.creation.Base;
-import main.java.creation.World;
-
+/**
+ * WorkChain class handles the behavior "Work" and allows each of the bases to
+ * Kill or Save People and get points for their work. When a base gets at least
+ * 50 points they get to go to the next state and decide if they want to create
+ * or fight
+ * 
+ * 
+ * CHAIN OF RESPONSIBILITY DESIGN PATTERN is used to handle the different
+ * behavior and states of all the different objects. A World object is passed to
+ * the first class in the chain and it does the work and passes it to the next
+ * and loops back until the Worlds "State" is no longer at risk
+ * WorkChain->CreateChain->FightChain->ExitChain. ExitChain loops back to
+ * WorkChain if the World's state is "At Risk", if the World is no longer "At
+ * Risk" the program exits and prints final messages
+ * 
+ * @author Chris Kurian
+ * @version 2.0
+ *
+ */
 public class WorkChain implements Chain {
 
     private Chain nextChain;
 
+    /**
+     * Sets the next member in the chain to pass the responsibility to.
+     * 
+     * @param nextChain
+     */
     @Override
     public void setNextChain(Chain nextChain) {
         this.nextChain = nextChain;
 
     }
 
+    /**
+     * Goes through the bases in the world to see if state = "Work" and if so allow
+     * each of the bases to Kill or Save People and get points for their work. When
+     * a base gets at least 50 points they get to go to the next state and decide if
+     * they want to create or fight
+     * 
+     * @param aWorld
+     */
     @Override
     public void doWork(World aWorld) {
-//        Base base1 = aWorld.getBase(1);
-//        Base base2= aWorld.getBase(2);
-//        Base base3 = aWorld.getBase(3);
-//        Base base4= aWorld.getBase(4);
+
         Vector<Base> baseVector = aWorld.getBaseVector();
         boolean switchChain = false;
         int newPoints = 0;

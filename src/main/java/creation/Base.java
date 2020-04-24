@@ -4,21 +4,29 @@ import java.util.NoSuchElementException;
 import java.util.Vector;
 
 /**
- * Base class creates the bases for the villians and heros within the words.
- * There can be a total of 5 m
+ * Base class creates the bases for the villains and heros within the Worlds.
+ * There can be a total of 5 members of the same type in a base. Base's State is
+ * "Open" if it has no members, "Lair" if members are Villains and "Base" if
+ * members are heros.
  * 
- * @author chris
+ * Base states: { "Lair", "Base", "Open" }; Base Actions: { "Work", "Create",
+ * "Fight", "Recover" };
+ * 
+ * BUILDER DESIGN PATTERN is used to provide a better and more flexible approach
+ * to object creation. Allows you to create objects with or without manual entry
+ * of all the instance variables
+ * 
+ * @author Chris Kurian
+ * @version 3.0
+ *
  *
  */
 public class Base {
 
-    public String[] stateList = { "Lair", "Base", "Open" };
-    public String[] actionList = { "Work", "Create", "Fight", "Recover" };
-    private Vector<Character> members = new Vector<Character>(5);
-
     private String name;
     private String state, actionState;
     private int totalMembers, points;
+    private Vector<Character> members = new Vector<Character>(5);
 
     public Base(Builder builder) {
         this.members = builder.members;

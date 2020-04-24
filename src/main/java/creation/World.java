@@ -1,22 +1,26 @@
 package main.java.creation;
 
-import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Vector;
 
 /**
  * World class is equivalent to cities where heros and villains can have bases
- * and layers of 5. Each world will have 4 bases that can be occupied by
- * Villains or heros. If all bases are heros then the state of the world is
- * Protected. If all bases are Villains then the world has Fallen, else the
- * world is vulnerable. This class uses the builder pattern.
+ * and lairs of 5. Each world will have 4 bases that can be occupied by Villains
+ * or heros. If ALL bases are of heros then the state of the world is
+ * "Protected". If all bases are of Villains then the world has "Fallen", else
+ * the world is "At Risk".
  * 
- * @author chris
- *
+ * World States: { "Secured", "Fallen", "At Risk" }
+ * 
+ * BUILDER DESIGN PATTERN is used to provide a better and more flexible approach
+ * to object creation. Allows you to create objects with or without manual entry
+ * of all the instance variables
+ * 
+ * @author Chris Kurian
+ * @version 3.0
  */
 public class World {
 
-    public String[] states = { "Secured", "Fallen", "At Risk" };
     private String name, state;
     private int totalOpen;
     private Vector<Base> baseVector = new Vector<Base>(4);

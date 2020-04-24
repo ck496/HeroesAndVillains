@@ -1,11 +1,28 @@
 package main.java.behavior;
 
-import java.util.Vector;
-
 import main.java.creation.Base;
 import main.java.creation.World;
 import main.java.creation.Character;
+import java.util.Vector;
 
+/**
+ * RecoverChain class handles the behavior "recover " and allows each of the
+ * members to recover after a fight.Recover Chain gives 25 health points back to
+ * members of base that just fought, if member level is under 5 the cap is 100
+ * health points. After recover you go to ExitChain.
+ * 
+ * CHAIN OF RESPONSIBILITY DESIGN PATTERN is used to handle the different
+ * behavior and states of all the different objects. A World object is passed to
+ * the first class in the chain and it does the work and passes it to the next
+ * and loops back until the Worlds "State" is no longer at risk
+ * WorkChain->CreateChain->FightChain->ExitChain. ExitChain loops back to
+ * WorkChain if the World's state is "At Risk", if the World is no longer "At
+ * Risk" the program exits and prints final messages
+ * 
+ * @author Chris Kurian
+ * @version 3.0
+ *
+ */
 public class RecoverChain implements Chain {
     private Chain nextChain;
 
@@ -31,8 +48,6 @@ public class RecoverChain implements Chain {
                     int health = ch.getHealth() + 25;
                     if (health > 100 && ch.getLevel() <= 5) {
                         ch.setHealth(100);
-                    } else if (health > 100 && ch.getLevel() > 5) {
-                        ch.setHealth(health);
                     } else {
                         ch.setHealth(health);
                     }

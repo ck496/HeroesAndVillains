@@ -2,11 +2,26 @@ package main.java.creation;
 
 import java.util.Random;
 
+/**
+ * Character classes creates the hero or villain characters and provides all the
+ * methods to change and get their instance variables. Heros and Villains will
+ * get appropriate names for their type based on a random name generator. They
+ * will also be assigned a power based on a random power generator and
+ * appropriate strengths and weakness based on their power.
+ * 
+ * Villain States { "Attack", "Create", "Fight","Recover", "Move", "Dead" };
+ * Hero States: { "Protect", "Create", "Fight","Recover", "Move", "Dead" };
+ * 
+ * BUILDER DESIGN PATTERN is used to provide a better and more flexible approach
+ * to object creation. Allows you to create objects with or without manual entry
+ * of all the instance variables
+ * 
+ * @author Chris Kurian
+ * @version 2.0
+ *
+ *
+ */
 public class Character {
-
-    protected String[] stateListV = { "Attack", "Create", "Fight", "Recover", "Move", "Dead" };
-
-    protected String[] stateListH = { "Protect", "Create", "Fight", "Recover", "Move", "Dead" };
 
     private String name;
     private boolean isHero;
@@ -26,7 +41,6 @@ public class Character {
         this.power = builder.power;
         this.strength = builder.strength;
         this.weakness = builder.weakness;
-
     }
 
     /**
@@ -75,7 +89,7 @@ public class Character {
     }
 
     /**
-     * THis method lets you update the level as they win battles;
+     * This method lets you update the level as they win battles;
      * 
      * @param level the level to set
      */
@@ -93,6 +107,8 @@ public class Character {
     }
 
     /**
+     * Set Health of the Character.
+     * 
      * @param health the health to set
      */
     public void setHealth(int health) {
@@ -105,6 +121,8 @@ public class Character {
     }
 
     /**
+     * Return is hero.
+     * 
      * @return the isHero
      */
     public boolean isHero() {
@@ -112,6 +130,8 @@ public class Character {
     }
 
     /**
+     * Get weakness of the Character.
+     * 
      * @return the weaknes
      */
     public String getWeakness() {
@@ -119,6 +139,8 @@ public class Character {
     }
 
     /**
+     * Get strength of the Character.
+     * 
      * @return the strength
      */
     public String getStrength() {
@@ -139,23 +161,23 @@ public class Character {
      * Builder class Builds the Character.
      */
     public static class Builder {
-
+        // List of first and last names of villains for the random generator to choose
+        // from.
         private String[] villanFirst = { "Death", "Doom", "Revenge", "Ghost",
                 "Rosenheim", "Demon", "Kunigunde von", "Lord",
                 "Rübezahl", "Hell", "Soul", "Petermännchen", "Dark", "Night", "Blood" };
-
         private String[] villanLast = { "Destroyer", "Creator", "Worshiper", "Orlamünde",
                 "Reaper", "Collector", "Krampus", "Opressor", "Poltergeist", "Hansel", "Grethel",
                 "Elwetritschen", "Vader", "Bone", "Terror" };
-
+        // List of first and last names of heros for the random generator to choose
+        // from.
         private String[] heroFirst = { "Captain", "Sonic", "Super", "Beast", "Crystal",
                 "Speed", "Light", "Power", "Lord",
                 "Vision", "Hell", "Soul", "Doctor", "Galactic", "Aqua" };
-
         private String[] heroLast = { "Surfer", "Boy", "Women", "Man", "Girl", "Avenger",
                 "Protector", "Defender", "Jedi",
                 "Hansel", "Grethel", "Belsnickel", "Gaurdian", "Slayer", "Thunder" };
-
+        // List of Powers for the random generator to choose from.
         private String[] powerList = { "Fire", "Water", "Earth", "Electric", "Psychic",
                 "Dark", "Fighting" };
 
@@ -184,6 +206,13 @@ public class Character {
             }
         }
 
+        /**
+         * Random generator.
+         * 
+         * @param start
+         * @param end
+         * @return ranInt
+         */
         private int randomGen(int start, int end) {
 
             Random random = new Random();
@@ -192,6 +221,8 @@ public class Character {
         }
 
         /**
+         * Set power of character.
+         * 
          * @param power the power to set
          */
         private void setRanPower() {
@@ -200,7 +231,7 @@ public class Character {
         }
 
         /**
-         * @param weakness the weakness to set
+         * Set weakness of character.
          */
         private void setWeakness() {
             if (this.power.equals("Fire")) {
@@ -221,7 +252,7 @@ public class Character {
         }
 
         /**
-         * @param strength the strength to set
+         * Set power of strength.
          */
         private void setStrength() {
             if (this.power.equals("Fire")) {
@@ -241,13 +272,12 @@ public class Character {
             }
         }
 
-        // ----Public methods available to users----
-
+        // ----Public methods available to users---
         /**
          * Allows you to pick if its a hero or not.
          * 
          * @param isHero
-         * @return
+         * @return this
          */
         public Builder isHero(boolean isHero) {
             this.isHero = isHero;
@@ -266,13 +296,22 @@ public class Character {
             return this;
         }
 
+        /**
+         * Set the state.
+         * 
+         * @param state
+         * @return this
+         */
         public Builder setState(String state) {
             this.state = state;
             return this;
         }
 
         /**
-         * @param power the power to set
+         * Set the state.
+         * 
+         * @param aPower
+         * @return this
          */
         public Builder setPower(String aPower) {
 

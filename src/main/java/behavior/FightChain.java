@@ -1,32 +1,62 @@
 package main.java.behavior;
 
-import java.util.Collections;
-import java.util.Random;
-import java.util.Vector;
-
 import main.java.creation.Character;
 import main.java.creation.Base;
 import main.java.creation.World;
+import java.util.Collections;
+import java.util.Vector;
 
+/**
+ * FightChain class handles the behavior "Fight" and allows each of the members
+ * to fight a member from another base. Also assigns levels and removes the
+ * dead. If a base decides to fight they will fight each member on another team
+ * chosen strategically to optimize wining. At the end of the fight everyone
+ * that fought levels up by 1 but if a member kills an enemy, member get gets
+ * their level +1 + enemy's level. After every fight, fighter have to recover so
+ * the nextCHain is usually set to RecoverChain while this class is used.
+ * 
+ * CHAIN OF RESPONSIBILITY DESIGN PATTERN is used to handle the different
+ * behavior and states of all the different objects. A World object is passed to
+ * the first class in the chain and it does the work and passes it to the next
+ * and loops back until the Worlds "State" is no longer at risk
+ * WorkChain->CreateChain->FightChain->ExitChain. ExitChain loops back to
+ * WorkChain if the World's state is "At Risk", if the World is no longer "At
+ * Risk" the program exits and prints final messages
+ * 
+ * @author Chris Kurian
+ * @version 3.0
+ *
+ */
 public class FightChain implements Chain {
     private Chain nextChain;
 
+    /**
+     * Sets the next member in the chain to pass the responsibility to.
+     * 
+     * @param nextChain
+     */
     @Override
     public void setNextChain(Chain nextChain) {
         this.nextChain = nextChain;
 
     }
 
+    /**
+     * Goes through the bases in the world to see if state = "Fight" and if so it
+     * sets up the fighting bases and calls the beginBattle method
+     * 
+     * @param aWorld
+     */
     @Override
     public void doWork(World aWorld) {
         Vector<Base> baseVector = aWorld.getBaseVector();
-        Random random = new Random();
         int newPoints = 0;
         Boolean fight = false;
 
         System.out.println("\n\n\t\t\t[FIGHT-CHAIN]\n");
 
         for (Base b : baseVector) {
+
             if (b.getActionState().equals("Fight")) {
                 // Create a vector of enemy basses to choose from
                 Vector<Base> enemyBases = new Vector<Base>();
@@ -43,7 +73,8 @@ public class FightChain implements Chain {
                 if (baseVector.size() == 0) {
                     System.out.println("\nNo Enemies to fight in this world, "
                             + "points are returend +50");
-                    b.setPoints(b.getPoints() + 50);
+                    newPoints = b.getPoints();
+                    b.setPoints(newPoints + 50);
                 } else if (baseVector.size() == 1) {
                     beginBattle(b, baseVector.get(0));
                     fight = true;
@@ -72,6 +103,14 @@ public class FightChain implements Chain {
         this.nextChain.doWork(aWorld);
     }
 
+    /**
+     * BeginBattle takes 2 bases and allows each of the members from one base to
+     * fight a member form the other base. Also assigns levels and removes up the
+     * dead.
+     * 
+     * @param base
+     * @param enemyBase
+     */
     private void beginBattle(Base base, Base enemyBase) {
         int maxAttacks = 5;
         Vector<Character> baseMembers = base.getMembers();

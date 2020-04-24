@@ -7,15 +7,45 @@ import main.java.creation.Base;
 import main.java.creation.Character;
 import main.java.creation.World;
 
+/**
+ * CreateChain class handles the behavior "Work" and allows each of the base to
+ * decide to go to next chain to fight or create a member.Base needs at at least
+ * 5 members to fight. If create is picked, create a new character and either
+ * add it to current base, an allied base if their base is filled or to another
+ * world if all the bases in the current world is filled.
+ * 
+ * CHAIN OF RESPONSIBILITY DESIGN PATTERN is used to handle the different
+ * behavior and states of all the different objects. A World object is passed to
+ * the first class in the chain and it does the work and passes it to the next
+ * and loops back until the Worlds "State" is no longer at risk
+ * WorkChain->CreateChain->FightChain->ExitChain. ExitChain loops back to
+ * WorkChain if the World's state is "At Risk", if the World is no longer "At
+ * Risk" the program exits and prints final messages
+ * 
+ * @author Chris Kurian
+ * @version 3.0
+ */
 public class CreateChain implements Chain {
     private Chain nextChain;
 
+    /**
+     * Sets the next member in the chain to pass the responsibility to.
+     * 
+     * @param nextChain
+     */
     @Override
     public void setNextChain(Chain nextChain) {
         this.nextChain = nextChain;
 
     }
 
+    /**
+     * Handles the logic to see how to create or go to fight. If create, then calls
+     * the addMEmeberToBase function to create a member and add them to the
+     * specified base.
+     * 
+     * @param aWorld
+     */
     @Override
     public void doWork(World aWorld) {
         Vector<Base> baseVector = aWorld.getBaseVector();
@@ -102,7 +132,14 @@ public class CreateChain implements Chain {
     }
 
     // Helper functions
-
+    /**
+     * addMEmeberToBase function creates a Character and add them to the specified
+     * base based on a parent Character.
+     * 
+     * @param b
+     * @param parent
+     * @return
+     */
     private boolean addMemeberToBase(Base b, Character parent) {
 
         Character ch = new Character.Builder()
