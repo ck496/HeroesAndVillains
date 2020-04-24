@@ -8,7 +8,7 @@ apply plugin: 'jacoco'
 //apply plugin: 'java'
 
 
-mainClassName = 'main.java.Main'
+mainClassName = 'main.java.console.Main'
 
 //get user  input 
 
