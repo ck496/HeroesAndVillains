@@ -22,8 +22,8 @@ public class Main {
         System.out.println("Welcome to the Heros and Villans Universe! "
                 + "\n\nWhich side will you choose?? \nWho will emerge "
                 + "victorious? \nWhat will be the fate of the universe?"
-                + "\n\nFind out soon..........");
-
+                + "\n\nFind out soon..........\n\n");
+        // BADGUYS
         Character ch = new Character.Builder().isHero(false).constructCharacter();
         Character ch2 = new Character.Builder().isHero(false).constructCharacter();
         Character ch3 = new Character.Builder().isHero(false).constructCharacter();
@@ -37,7 +37,6 @@ public class Main {
 //        villainVector.add(ch4);
 //        villainVector.add(ch5);
 
-        // BADGUYS
         String name = "Thanos";
         Base thanos = new Base.Builder().setName(name).setState("Lair")
                 .setMemberVector(villainVector)
@@ -45,9 +44,7 @@ public class Main {
 
         // GOODGUYS
         Character chg = new Character.Builder().isHero(true).constructCharacter();
-        // ch.print();
         Character chg2 = new Character.Builder().isHero(true).constructCharacter();
-        // ch2.print();
         Character chg3 = new Character.Builder().isHero(true).constructCharacter();
         Character chg4 = new Character.Builder().isHero(true).constructCharacter();
         Character chg5 = new Character.Builder().isHero(true).constructCharacter();
@@ -83,10 +80,8 @@ public class Main {
                 .setbaseVector(worldBase0).worldConstruct();
 
         aWorld.print("");
-//        Universe aUniverse = new Universe.Builder().setUniverseName("Gramada")
+//        Universe aUniverse = new Universe.Builder().setName("Gramada")
 //                .addWorld(aWorld).constrUniverse();
-//        
-//        aUniverse.print();
 
         Chain workChain = new WorkChain();
         Chain createChain = new CreateChain();
