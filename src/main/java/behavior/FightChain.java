@@ -1,10 +1,11 @@
 package main.java.behavior;
 
-import main.java.creation.Character;
-import main.java.creation.Base;
-import main.java.creation.World;
 import java.util.Collections;
 import java.util.Vector;
+
+import main.java.creation.Base;
+import main.java.creation.Character;
+import main.java.creation.World;
 
 /**
  * FightChain class handles the behavior "Fight" and allows each of the members
@@ -15,6 +16,7 @@ import java.util.Vector;
  * their level +1 + enemy's level. After every fight, fighter have to recover so
  * the nextCHain is usually set to RecoverChain while this class is used.
  * 
+ * <p>
  * CHAIN OF RESPONSIBILITY DESIGN PATTERN is used to handle the different
  * behavior and states of all the different objects. A World object is passed to
  * the first class in the chain and it does the work and passes it to the next
@@ -33,7 +35,7 @@ public class FightChain implements Chain {
     /**
      * Sets the next member in the chain to pass the responsibility to.
      * 
-     * @param nextChain
+     * @param nextChain in line
      */
     @Override
     public void setNextChain(Chain nextChain) {
@@ -43,9 +45,9 @@ public class FightChain implements Chain {
 
     /**
      * Goes through the bases in the world to see if state = "Fight" and if so it
-     * sets up the fighting bases and calls the beginBattle method
+     * sets up the fighting bases and calls the beginBattle method.
      * 
-     * @param aWorld
+     * @param aWorld to work on
      */
     @Override
     public void doWork(World aWorld) {
@@ -62,8 +64,8 @@ public class FightChain implements Chain {
                 Vector<Base> enemyBases = new Vector<Base>();
                 Vector<Integer> memberSizesVector = new Vector<Integer>();
                 for (Base base : baseVector) {
-                    if (!base.getState().equals(b.getState()) &&
-                            !base.getState().equals("Open")) {
+                    if (!base.getState().equals(b.getState())
+                            && !base.getState().equals("Open")) {
                         enemyBases.add(base);
                         memberSizesVector.add(base.getTotalMembers());
 
@@ -108,8 +110,8 @@ public class FightChain implements Chain {
      * fight a member form the other base. Also assigns levels and removes up the
      * dead.
      * 
-     * @param base
-     * @param enemyBase
+     * @param base      of fighter
+     * @param enemyBase of enemy
      */
     private void beginBattle(Base base, Base enemyBase) {
         int maxAttacks = 5;
@@ -160,7 +162,8 @@ public class FightChain implements Chain {
                     fighterMove = 2 * fighterMove;
                     opponentHealth = opponentHealth - fighterMove;
                     System.out.println("\n" + fighter.getName() + " used " + fighter.getPower()
-                            + " attack on" + opponent.getName() + "\n--it is SUPER EFFECTIVE, Double Dammage: -"
+                            + " attack on" + opponent.getName()
+                            + "\n--it is SUPER EFFECTIVE, Double Dammage: -"
                             + fighterMove);
 
                     // opp Move
@@ -177,7 +180,8 @@ public class FightChain implements Chain {
                     opponentMove = 2 * opponentMove;
                     fighterHealth = fighterHealth - opponentMove;
                     System.out.println("\n" + opponent.getName() + " used " + opponent.getPower()
-                            + "attack on " + fighter.getName() + "\n--it is SUPER EFFECTIVE, Double Dammage: -" + opponentMove);
+                            + "attack on " + fighter.getName()
+                            + "\n--it is SUPER EFFECTIVE, Double Dammage: -" + opponentMove);
                 } else {
                     opponentHealth = opponentHealth - fighterMove;
                     System.out.println("\n" + fighter.getName() + " used " + fighter.getPower()
@@ -201,17 +205,20 @@ public class FightChain implements Chain {
                     int level = fighter.getLevel() + opponent.getLevel();
                     fighter.setLevel(level);
                     opponent.setHealth(0);
-                    System.out.println("\n\t\t     [VICTORY] \n\t" + fighter.getName() + " has Killed "
-                            + opponent.getName() + "\n\t " + "Level UP!\n"
-                            + fighter.getName() + "'s new [Lvl]: " + fighter.getLevel());
+                    System.out.println(
+                            "\n\t\t     [VICTORY] \n\t" + fighter.getName() + " has Killed "
+                                    + opponent.getName() + "\n\t " + "Level UP!\n"
+                                    + fighter.getName() + "'s new [Lvl]: " + fighter.getLevel());
                     break;
                 }
 
                 fighter.setHealth(fighterHealth);
                 opponent.setHealth(opponentHealth);
-                System.out.println("\nEnd of Round " + (j + 1) + " : \n" + fighter.getName() + "'s [Health]: "
-                        + fighter.getHealth() + "\n" + opponent.getName()
-                        + "'s [Health]: " + opponent.getHealth() + "\n---------------------------------");
+                System.out.println(
+                        "\nEnd of Round " + (j + 1) + " : \n" + fighter.getName() + "'s [Health]: "
+                                + fighter.getHealth() + "\n" + opponent.getName()
+                                + "'s [Health]: " + opponent.getHealth()
+                                + "\n---------------------------------");
 
             }
 

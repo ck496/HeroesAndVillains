@@ -1,10 +1,11 @@
 package main.java.behavior;
 
-import main.java.creation.*;
+import main.java.creation.World;
 
 /**
  * Interface is used to enable a chain of Responsibility.
  * 
+ * <p>
  * CHAIN OF RESPONSIBILITY DESIGN PATTERN is used to handle the different
  * behavior and states of all the different objects. A World object is passed to
  * the first class in the chain and it does the work and passes it to the next

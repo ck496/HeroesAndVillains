@@ -1,9 +1,10 @@
 package main.java.behavior;
 
-import main.java.creation.Base;
-import main.java.creation.World;
 import java.util.Random;
 import java.util.Vector;
+
+import main.java.creation.Base;
+import main.java.creation.World;
 
 /**
  * WorkChain class handles the behavior "Work" and allows each of the bases to
@@ -11,7 +12,7 @@ import java.util.Vector;
  * 50 points they get to go to the next state and decide if they want to create
  * or fight
  * 
- * 
+ * <p>
  * CHAIN OF RESPONSIBILITY DESIGN PATTERN is used to handle the different
  * behavior and states of all the different objects. A World object is passed to
  * the first class in the chain and it does the work and passes it to the next
@@ -31,7 +32,7 @@ public class WorkChain implements Chain {
     /**
      * Sets the next member in the chain to pass the responsibility to.
      * 
-     * @param nextChain
+     * @param nextChain in line
      */
     @Override
     public void setNextChain(Chain nextChain) {
@@ -45,7 +46,7 @@ public class WorkChain implements Chain {
      * a base gets at least 50 points they get to go to the next state and decide if
      * they want to create or fight
      * 
-     * @param aWorld
+     * @param aWorld to do work on
      */
     @Override
     public void doWork(World aWorld) {
@@ -76,9 +77,10 @@ public class WorkChain implements Chain {
                         }
 
                         if (b.getPoints() > 50) {
-                            System.out.println("\n\t\t    [ACHIEVEMENT UNLOCKED] \n\tTeam " + b.getName()
-                                    + " has a total of " + b.getPoints() + " points, "
-                                    + "\n\tThey get to Create a New Member or Fight!!");
+                            System.out.println(
+                                    "\n\t\t    [ACHIEVEMENT UNLOCKED] \n\tTeam " + b.getName()
+                                            + " has a total of " + b.getPoints() + " points, "
+                                            + "\n\tThey get to Create a New Member or Fight!!");
                             b.setActionState("Create");
                             switchChain = true;
                             break;

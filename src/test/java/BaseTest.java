@@ -5,18 +5,35 @@ import static org.junit.Assert.fail;
 
 import java.util.Vector;
 
+import main.java.creation.Base;
+import main.java.creation.Character;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.creation.Base;
-import main.java.creation.Character;
-
+/**
+ * BaseTest runs Unit Test on the Base class. CODE COVERAGE: test.java achieves
+ * 91.1% code coverage for the enter project.
+ * 
+ * @author Chris Kurian
+ * @version 3.0
+ *
+ */
 public class BaseTest {
     private Base base1;
-    private Character ch1, ch2, ch3, ch4, ch5, deadCharacter, oppCharacter;
+    private Character ch1;
+    private Character ch2;
+    private Character ch3;
+    private Character ch4;
+    private Character ch5;
+    private Character deadCharacter;
+    private Character oppCharacter;
     Vector<Character> members;
 
+    /**
+     * Method to set up before each test.
+     */
     @Before
     public void setUp() {
         ch1 = new Character.Builder().isHero(true)
@@ -42,6 +59,9 @@ public class BaseTest {
                 .baseConstruct();
     }
 
+    /**
+     * Test the default builder pattern without setting attributes.
+     */
     @After
     public void tearDown() {
         ch1 = null;
@@ -53,7 +73,7 @@ public class BaseTest {
     }
 
     /**
-     * Test the default builder pattern without setting attributes
+     * Test the default builder pattern without setting attributes.
      */
     @Test
     public void builderTestDefault() {
@@ -68,7 +88,7 @@ public class BaseTest {
     }
 
     /**
-     * Test Custom builder with attributes for power etc
+     * Test Custom builder with attributes for power etc.
      * 
      * @throws Exception
      */
@@ -95,7 +115,7 @@ public class BaseTest {
     }
 
     /**
-     * Test to see if you can set the hero/villain vector
+     * Test to see if you can set the hero/villain vector.
      */
     @Test
     public void testSetMemebrs() {
@@ -109,7 +129,7 @@ public class BaseTest {
 
     /**
      * Test remove and removeDead method on empty base, base with dead members and
-     * base with the correct amount of members
+     * base with the correct amount of members.
      */
     @Test
     public void testRemove() {
@@ -124,6 +144,7 @@ public class BaseTest {
             fail("Should have caught a NoSuchElement Exception, "
                     + "since ch1 is no longer in base");
         } catch (Exception e) {
+            // EMPTY
         }
 
         try {
@@ -138,6 +159,7 @@ public class BaseTest {
             fail("Should have caught a ArithmeticException Exception, "
                     + "while trying to remove  from an empty base");
         } catch (Exception e) {
+            // EMPTY
         }
 
         // remove dead on an empty base
@@ -146,6 +168,7 @@ public class BaseTest {
             fail("Should have caught a ArithmeticException Exception, "
                     + "while trying to remove dead from an empty base");
         } catch (Exception e) {
+            // EMPTY
         }
 
         // add dead member to see if remove dead can remove the dead member
@@ -163,7 +186,7 @@ public class BaseTest {
 
     /**
      * TestTo see if split function splits the members and gives a resulting vector
-     * of members
+     * of members.
      */
     @Test
     public void testSplitMemebrs() {
@@ -172,12 +195,13 @@ public class BaseTest {
             members = base1.getSplitMembers();
             fail("Not allowed to split a non full base");
         } catch (Exception e) {
-
+            // EMPTY
         }
         try {
             base1.addMember(oppCharacter);
             fail("Cant add a villain to a hero base");
         } catch (Exception e) {
+            // EMPTY
 
         }
         base1.addMember(ch3);
@@ -201,7 +225,7 @@ public class BaseTest {
     }
 
     /**
-     * Test the getMemberNames function
+     * Test the getMemberNames function.
      */
     @Test
     public void testGetMemberNames() {
@@ -218,17 +242,19 @@ public class BaseTest {
             fail("Should have caught an exception while "
                     + "trying to get memeber names of an empty base");
         } catch (Exception e) {
+            // EMPTY
         }
     }
 
     /**
-     * Test getStrongest and weakest
+     * Test getStrongest and weakest.
      */
     @Test
     public void getDifferentStrengths() {
         Base tmp = new Base.Builder()
                 .baseConstruct();
-        Character strongest = null, weakest = null;
+        Character strongest = null;
+        Character weakest = null;
         // Trying to get strongest and weakest from an
         // empty base should throw an exception.
         try {
@@ -236,12 +262,14 @@ public class BaseTest {
             fail("Should have caught an exception while "
                     + "trying to get strongest from an empty base");
         } catch (Exception e) {
+            // EMPTY
         }
         try {
             weakest = tmp.getWeakestMember();
             fail("Should have caught an exception while "
                     + "trying to get weakest from an empty base");
         } catch (Exception e) {
+            // EMPTY
         }
 
         // Get strongest and weakest from base1

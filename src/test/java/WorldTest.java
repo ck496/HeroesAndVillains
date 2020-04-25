@@ -1,25 +1,39 @@
 package test.java;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Vector;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import main.java.creation.Base;
 import main.java.creation.Character;
 import main.java.creation.World;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * WorldTest runs Unit Test on the world class. CODE COVERAGE: test.java
+ * achieves 91.1% code coverage for the enter project.
+ * 
+ * @author Chris Kurian
+ * @version 3.0
+ *
+ */
 public class WorldTest {
     private World aWorld;
-    private Base base1, base2;
-    private Character ch1, ch2, ch3, ch4, ch5, deadCharacter, oppCharacter;
-    Vector<Base> baseVector1, baseVector2;
+    private Base base1;
+    private Base base2;
+    private Character ch1;
+    private Character ch2;
+    private Character ch3;
+    private Character ch4;
+    Vector<Base> baseVector1;
 
+    /**
+     * Method to set up before each test.
+     */
     @Before
     public void setUp() {
         ch1 = new Character.Builder().isHero(true)
@@ -30,16 +44,8 @@ public class WorldTest {
                 .constructCharacter();
         ch4 = new Character.Builder().isHero(false)
                 .constructCharacter();
-        ch5 = new Character.Builder().isHero(true)
-                .constructCharacter();
-        deadCharacter = new Character.Builder().isHero(true)
-                .setState("Dead")
-                .constructCharacter();
-        oppCharacter = new Character.Builder().isHero(false)
-                .constructCharacter();
 
         baseVector1 = new Vector<Base>();
-        baseVector2 = new Vector<Base>();
 
         base1 = new Base.Builder().setName("Base1").setState("Base")
                 .addMemeber(ch1).addMemeber(ch2)
@@ -55,21 +61,21 @@ public class WorldTest {
                 .worldConstruct();
     }
 
+    /**
+     * Method to tear down after each test.
+     */
     @After
     public void tearDown() {
         ch1 = null;
         ch2 = null;
-        deadCharacter = null;
-        oppCharacter = null;
         baseVector1 = null;
-        baseVector2 = null;
         base1 = null;
         base2 = null;
         aWorld = null;
     }
 
     /**
-     * Test default constructor
+     * Test default constructor.
      */
     @Test
     public void testDefaultBuilder() {
@@ -86,25 +92,27 @@ public class WorldTest {
     }
 
     /**
-     * Test getBase by index and name
+     * Test getBase by index and name.
      */
     @Test
     public void testGetBase() {
         Base b1 = null;
-        Base b2 = null;
         try {
             b1 = aWorld.getBase(0);
             fail("Tried to get base from an out of bounds index"
                     + ", should have thrown an Exception");
         } catch (Exception e) {
+            // TODO: handle exception
         }
         try {
             b1 = aWorld.getBase("BLAH");
             fail("No base witht he name BLAH so"
                     + " should have thrown an Exception");
         } catch (Exception e) {
+            // Empty
         }
 
+        Base b2 = null;
         b1 = aWorld.getBase(1);
         b2 = aWorld.getBase("Base2");
 
@@ -114,7 +122,7 @@ public class WorldTest {
     }
 
     /**
-     * Test base Vectors and base names
+     * Test base Vectors and base names.
      */
     @Test
     public void testSetBaseVector() {

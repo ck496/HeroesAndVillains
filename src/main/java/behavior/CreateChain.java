@@ -14,6 +14,7 @@ import main.java.creation.World;
  * add it to current base, an allied base if their base is filled or to another
  * world if all the bases in the current world is filled.
  * 
+ * <P>
  * CHAIN OF RESPONSIBILITY DESIGN PATTERN is used to handle the different
  * behavior and states of all the different objects. A World object is passed to
  * the first class in the chain and it does the work and passes it to the next
@@ -31,7 +32,7 @@ public class CreateChain implements Chain {
     /**
      * Sets the next member in the chain to pass the responsibility to.
      * 
-     * @param nextChain
+     * @param nextChain in line
      */
     @Override
     public void setNextChain(Chain nextChain) {
@@ -44,7 +45,7 @@ public class CreateChain implements Chain {
      * the addMEmeberToBase function to create a member and add them to the
      * specified base.
      * 
-     * @param aWorld
+     * @param aWorld to do work on
      */
     @Override
     public void doWork(World aWorld) {
@@ -82,9 +83,10 @@ public class CreateChain implements Chain {
                         // Didn't get the chance to fight so create a new member
                         // 1) if current base has less than 5 members then add to current base
                         if (b.getTotalMembers() < 5) {
-                            System.out.println("\n\t\t       [ATTENTION:Create] \n\tTeam " + b.getName()
-                                    + " has a deiccded to Create a "
-                                    + "\n\t new member and add them to the team !\n");
+                            System.out.println(
+                                    "\n\t\t       [ATTENTION:Create] \n\tTeam " + b.getName()
+                                            + " has a deiccded to Create a "
+                                            + "\n\t new member and add them to the team !\n");
                             addMemeberToBase(b, b.getWeakestMember());
                             newPoints = b.getPoints() - 50;
                             b.setPoints(newPoints);
@@ -93,12 +95,15 @@ public class CreateChain implements Chain {
                             // 2.1) send to another base in current World if possible
                             boolean sentToNewWorld = true;
                             for (Base allyBase : baseVector) {
-                                if (allyBase.getState().equals(b.getState()) ||
-                                        allyBase.getState().equals("Open")) {
+                                if (allyBase.getState().equals(b.getState())
+                                        || allyBase.getState().equals("Open")) {
                                     if (allyBase.getTotalMembers() < 5) {
-                                        System.out.println("\n\t\t       [ATTENTION:Create] \n\tTeam " + b.getName()
-                                                + " has a deiccded to Create and send "
-                                                + "\n\tnew memeber to an ALLY team in " + aWorld.getName());
+                                        System.out.println(
+                                                "\n\t\t       [ATTENTION:Create] \n\tTeam "
+                                                        + b.getName()
+                                                        + " has a deiccded to Create and send "
+                                                        + "\n\tnew memeber to an ALLY team in "
+                                                        + aWorld.getName());
                                         addMemeberToBase(allyBase, b.getWeakestMember());
                                         newPoints = b.getPoints() - 50;
                                         b.setPoints(newPoints);
@@ -110,8 +115,9 @@ public class CreateChain implements Chain {
 
                             // 2.1) send to another another world in the universe if possible
                             if (sentToNewWorld) {
-                                System.out.println("-------------SEND TO CREATED TO ANOTHER WORLD---------"
-                                        + "\n\t Not enough room in the base of this world");
+                                System.out.println(
+                                        "-------------SEND TO CREATED TO ANOTHER WORLD---------"
+                                                + "\n\t Not enough room in the base of this world");
                                 fight = true;
                             }
 
@@ -136,9 +142,9 @@ public class CreateChain implements Chain {
      * addMEmeberToBase function creates a Character and add them to the specified
      * base based on a parent Character.
      * 
-     * @param b
-     * @param parent
-     * @return
+     * @param b      base to add to
+     * @param parent to make new member from
+     * @return true if no exception caught
      */
     private boolean addMemeberToBase(Base b, Character parent) {
 

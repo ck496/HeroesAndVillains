@@ -9,9 +9,11 @@ import java.util.Vector;
  * or heros. If ALL bases are of heros then the state of the world is
  * "Protected". If all bases are of Villains then the world has "Fallen", else
  * the world is "At Risk".
- * 
+ *
+ * <p>
  * World States: { "Secured", "Fallen", "At Risk" }
  * 
+ * <p>
  * BUILDER DESIGN PATTERN is used to provide a better and more flexible approach
  * to object creation. Allows you to create objects with or without manual entry
  * of all the instance variables
@@ -21,10 +23,16 @@ import java.util.Vector;
  */
 public class World {
 
-    private String name, state;
+    private String name;
+    private String state;
     private int totalOpen;
     private Vector<Base> baseVector = new Vector<Base>(4);
 
+    /**
+     * Constructor using builder.
+     * 
+     * @param builder used to build world
+     */
     public World(Builder builder) {
         this.name = builder.name;
         this.setState(builder.state);
@@ -33,6 +41,7 @@ public class World {
     }
 
     /**
+     * get Name of World;
      * 
      * @return name String.
      */
@@ -41,13 +50,17 @@ public class World {
     }
 
     /**
-     * @param name the name to set
+     * Set Name of the world.
+     * 
+     * @param name of the world.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
+     * Get The State of the world.
+     * 
      * @return the state
      */
     public String getState() {
@@ -55,6 +68,8 @@ public class World {
     }
 
     /**
+     * Set the state of the world.
+     * 
      * @param state the state to set
      */
     public void setState(String state) {
@@ -62,6 +77,8 @@ public class World {
     }
 
     /**
+     * Get the total number of open bases
+     * 
      * @return the totalOpen
      */
     public int gettotalOpen() {
@@ -76,6 +93,8 @@ public class World {
     }
 
     /**
+     * Get the base vector of the world.
+     * 
      * @return the baseVector
      */
     public Vector<Base> getBaseVector() {
@@ -83,6 +102,8 @@ public class World {
     }
 
     /**
+     * Set the base vector if the size is 4.
+     * 
      * @param baseVector the baseVector to set
      */
     public void setbaseVector(Vector<Base> aBaseVector) {
@@ -102,9 +123,9 @@ public class World {
     }
 
     /**
-     * Get vector of Member names;
+     * Get vector of Member names.
      * 
-     * @return
+     * @return the baseNames
      */
     public Vector<String> getBaseNames() {
         Vector<String> baseNames = new Vector<String>();
@@ -115,9 +136,10 @@ public class World {
     }
 
     /**
+     * If baseName is in the world then return that base.
      * 
-     * @param baseName
-     * @return
+     * @param baseName String
+     * @return a base
      */
     public Base getBase(String baseName) {
         Base base = null;
@@ -133,6 +155,12 @@ public class World {
         return base;
     }
 
+    /**
+     * Return a base based on the index.
+     * 
+     * @param index of base
+     * @return the base
+     */
     public Base getBase(int index) {
         int i = index - 1;
         if (i > 4 || i < 0) {
@@ -143,6 +171,11 @@ public class World {
         return baseVector.get(i);
     }
 
+    /**
+     * Print the state of the world.
+     * 
+     * @param s string to format
+     */
     public void print(String s) {
         System.out.println(s + "[World Name]: " + this.name + "\n" + s + "[State]: " + this.state
                 + "\n" + s + "[Open Bases]: " + totalOpen + "\n" + s + "---Base Details---");
@@ -161,7 +194,10 @@ public class World {
         private Vector<Base> baseVector = new Vector<Base>(4);
 
         /**
-         * @param name the name to set
+         * Set the name of builder.
+         * 
+         * @param name to set
+         * @return Builder return itself
          */
         public Builder setName(String name) {
             this.name = name;
@@ -169,9 +205,10 @@ public class World {
         }
 
         /**
-         * SetBaseVector allows the user to add a specific BaseVector into the world;
+         * SetBaseVector allows the user to add a specific BaseVector into the world;.
          * 
-         * @param baseVector the baseVector to set
+         * @param name to set
+         * @return Builder return itself
          */
         public Builder setbaseVector(Vector<Base> aBaseVector) {
             for (Base b : aBaseVector) {
@@ -188,9 +225,10 @@ public class World {
         }
 
         /**
-         * ALlows the user to add a base to the base vector
+         * ALlows the user to add a base to the base vector.
          * 
-         * @param aBase
+         * @param aBase to add
+         * @return Builder return itself
          */
         public Builder addBase(Base aBase) {
             if (baseVector.size() >= 4) {
@@ -222,6 +260,11 @@ public class World {
             }
         }
 
+        /**
+         * Construct the World from builder.
+         * 
+         * @return Builder return itself
+         */
         public World worldConstruct() {
             fillBaseVector();
             this.state = "At Risk";

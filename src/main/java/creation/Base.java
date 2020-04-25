@@ -9,9 +9,11 @@ import java.util.Vector;
  * "Open" if it has no members, "Lair" if members are Villains and "Base" if
  * members are heros.
  * 
+ * <p>
  * Base states: { "Lair", "Base", "Open" }; Base Actions: { "Work", "Create",
  * "Fight", "Recover" };
  * 
+ * <p>
  * BUILDER DESIGN PATTERN is used to provide a better and more flexible approach
  * to object creation. Allows you to create objects with or without manual entry
  * of all the instance variables
@@ -24,10 +26,17 @@ import java.util.Vector;
 public class Base {
 
     private String name;
-    private String state, actionState;
-    private int totalMembers, points;
+    private String state;
+    private String actionState;
+    private int totalMembers;
+    private int points;
     private Vector<Character> members = new Vector<Character>(5);
 
+    /**
+     * Construct Base using a Builder.
+     * 
+     * @param builder Builder
+     */
     public Base(Builder builder) {
         this.members = builder.members;
         this.name = builder.name;
@@ -38,6 +47,8 @@ public class Base {
     }
 
     /**
+     * Get Members of base.
+     * 
      * @return the members
      */
     public Vector<Character> getMembers() {
@@ -45,7 +56,9 @@ public class Base {
     }
 
     /**
-     * @param members the members to set
+     * Set Members of base.
+     * 
+     * @param chArr the members to set
      */
     public void setMembers(Vector<Character> chArr) {
         for (Character ch : chArr) {
@@ -60,6 +73,8 @@ public class Base {
     }
 
     /**
+     * Get name of base.
+     * 
      * @return the name
      */
     public String getName() {
@@ -67,6 +82,8 @@ public class Base {
     }
 
     /**
+     * set Name of base.
+     * 
      * @param name the name to set
      */
     public void setName(String name) {
@@ -74,6 +91,8 @@ public class Base {
     }
 
     /**
+     * Get state of base.
+     * 
      * @return the state
      */
     public String getState() {
@@ -81,6 +100,8 @@ public class Base {
     }
 
     /**
+     * Set state of base.
+     * 
      * @param state the state to set
      */
     public void setState(String state) {
@@ -88,6 +109,8 @@ public class Base {
     }
 
     /**
+     * Get Action State of base.
+     * 
      * @return the actionState
      */
     public String getActionState() {
@@ -95,6 +118,8 @@ public class Base {
     }
 
     /**
+     * Set Action state of base.
+     * 
      * @param actionState the actionState to set
      */
     public void setActionState(String actionState) {
@@ -102,6 +127,8 @@ public class Base {
     }
 
     /**
+     * Get points of base.
+     * 
      * @return the points
      */
     public int getPoints() {
@@ -109,6 +136,8 @@ public class Base {
     }
 
     /**
+     * Set Points of base.
+     * 
      * @param points the points to set
      */
     public void setPoints(int points) {
@@ -116,6 +145,8 @@ public class Base {
     }
 
     /**
+     * Get total member of the base.
+     * 
      * @return the charecterNum
      */
     public int getTotalMembers() {
@@ -125,9 +156,8 @@ public class Base {
     /**
      * Add Characters to vector.
      * 
-     * @param ch
-     * @return Builder
-     * @throws IllegalAccessException
+     * @param ch character
+     * @throws IllegalAccessException if max capacity
      */
     public void addMember(Character ch) {
 
@@ -157,10 +187,9 @@ public class Base {
     }
 
     /**
-     * Function used to split up base as members are greater than 5
+     * Function used to split up base as members are greater than 5.
      * 
-     * @return
-     * @throws Exception
+     * @return splitMembers with 3 members
      */
     public Vector<Character> getSplitMembers() throws Exception {
         removeDead();
@@ -170,9 +199,12 @@ public class Base {
 
         Vector<Character> splitMembers = new Vector<Character>();
         for (int i = 0; i < 3; i++) {
-            Character splitCharacter = new Character.Builder().isHero(members.elementAt(0).isHero())
-                    .setName(members.elementAt(0).getName()).setState(members.elementAt(0).getState())
-                    .setLevel(members.elementAt(0).getLevel()).setPower(members.elementAt(0).getPower())
+            Character splitCharacter = new Character.Builder()
+                    .isHero(members.elementAt(0).isHero())
+                    .setName(members.elementAt(0).getName())
+                    .setState(members.elementAt(0).getState())
+                    .setLevel(members.elementAt(0).getLevel())
+                    .setPower(members.elementAt(0).getPower())
                     .constructCharacter();
             splitMembers.add(splitCharacter);
             members.remove(0);
@@ -184,7 +216,7 @@ public class Base {
     /**
      * Remove Dead Characters from base.
      * 
-     * @throws ArithmeticException
+     * @throws ArithmeticException if empty
      */
     public void removeDead() {
         if (totalMembers == 0) {
@@ -212,8 +244,8 @@ public class Base {
      * 
      * Remove Member given a name and their power.
      * 
-     * @param name
-     * @param power
+     * @param name  to remove
+     * @param power of member
      */
     public void removeMember(String name, String power) {
         if (totalMembers == 0) {
@@ -231,12 +263,10 @@ public class Base {
 
             }
         }
-
         if (!inBase) {
             throw new NoSuchElementException("No member with the name '" + name
                     + "' and power: '" + power + "' exists in " + this.name);
         }
-
         if (this.totalMembers == 0) {
             this.state = "Open";
         }
@@ -244,9 +274,9 @@ public class Base {
 
     /**
      * Gets the strongest. Returns a reference to the actual member not a copy. So
-     * outside change affects inside member
+     * outside change affects inside member.
      * 
-     * @return strongest
+     * @return strongest member
      */
     public Character getStrongestMember() {
         if (totalMembers == 0) {
@@ -265,9 +295,9 @@ public class Base {
 
     /**
      * Gets the Weakest. Returns a reference to the actual member not a copy. So
-     * outside change affects inside member
+     * outside change affects inside member.
      * 
-     * @return Weakest
+     * @return weakest member
      */
     public Character getWeakestMember() {
         if (totalMembers == 0) {
@@ -280,14 +310,13 @@ public class Base {
                 weakest = ch;
             }
         }
-
         return weakest;
     }
 
     /**
-     * Returns a vector of the memeber names.
+     * Returns a vector of the member names.
      * 
-     * @return memberNames
+     * @return memberNames name of memebers
      */
     public Vector<String> getMemberNames() {
         if (totalMembers == 0) {
@@ -301,20 +330,17 @@ public class Base {
         return memberNames;
     }
 
+    /**
+     * Print the state of the base.
+     */
     public void print(String s) {
-
         System.out.println(s + "[Base Name]: " + this.name + "\n" + s + "[State]: "
                 + this.state + "\n" + s + "[Action State]: "
                 + this.actionState + "\n" + s + "[Total Memebrs]: " + this.totalMembers
                 + "\n" + s + "--Memeber Detils-- ");
         try {
-//            int counter = 0;
             for (Character ch : members) {
                 ch.print("\t\t\t");
-//                counter++;
-//                System.out.println( s+ "[" + counter + "]: " + ch.getName() 
-//                    + "\t-[Lvl]: " +ch.getLevel() + " -[Power]: " + ch.getPower()
-//                    + " -[State]: " + ch.getState());
             }
         } catch (NoSuchElementException e) {
             System.out.println(s + "0 memebers in this base");
@@ -325,18 +351,21 @@ public class Base {
     }
 
     /**
-     * Constructs the base objects using builder pattern
+     * Constructs the base objects using builder pattern.
      */
     public static class Builder {
         private String name;
-        private String state = "", actionState;
-        private int totalMembers, points;
+        private String state = "";
+        private String actionState;
+        private int totalMembers;
+        private int points;
         Vector<Character> members = new Vector<Character>(5);
 
         /**
+         * Set the name of the builder.
          * 
-         * @param name
-         * @return Builder
+         * @param name to set
+         * @return Builder this
          */
         public Builder setName(String name) {
             this.name = name;
@@ -344,10 +373,10 @@ public class Base {
         }
 
         /**
-         * sets the state;
+         * Sets the state.
          * 
-         * @param state
-         * @return
+         * @param state to set
+         * @return Builder this
          */
         public Builder setState(String state) {
             this.state = state;
@@ -355,9 +384,10 @@ public class Base {
         }
 
         /**
+         * Set the member Vector of the builder.
          * 
-         * @param memberVector
-         * @return Builder
+         * @param chArr to set
+         * @return Builder this
          */
         public Builder setMemberVector(Vector<Character> chArr) {
             for (Character ch : chArr) {
@@ -373,8 +403,8 @@ public class Base {
         /**
          * Add Characters to vector.
          * 
-         * @param ch
-         * @return Builder
+         * @param ch Character
+         * @return Builder this
          */
         public Builder addMemeber(Character ch) {
             Character newCharacter = new Character.Builder().isHero(ch.isHero())
@@ -386,9 +416,9 @@ public class Base {
         }
 
         /**
-         * Constructs the base objects using builder pattern
-         * 
-         * @return Base
+         * Constructs the base objects using builder pattern.
+         *
+         * @return Base constructed
          */
         public Base baseConstruct() {
             this.totalMembers = this.members.size();

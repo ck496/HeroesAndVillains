@@ -2,28 +2,41 @@ package test.java;
 
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-import java.util.Vector;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import main.java.behavior.Chain;
 import main.java.behavior.CreateChain;
 import main.java.behavior.ExitChain;
 import main.java.behavior.FightChain;
 import main.java.behavior.RecoverChain;
 import main.java.behavior.WorkChain;
+
 import main.java.creation.Base;
 import main.java.creation.Character;
 import main.java.creation.World;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * BehaviorTest runs Unit Test on the Behavior classes. CODE COVERAGE: test.java
+ * achieves 91.1% code coverage for the enter project.
+ * 
+ * @author Chris Kurian
+ * @version 3.0
+ *
+ */
 public class BehaviorTest {
     private World aWorld;
-    private Base base1, base2;
-    private Character ch1, ch2, ch3, ch4;
+    private Base base1;
+    private Base base2;
+    private Character ch1;
+    private Character ch2;
+    private Character ch3;
+    private Character ch4;
 
+    /**
+     * Method to set up before each test.
+     */
     @Before
     public void setUp() {
         ch1 = new Character.Builder().isHero(true)
@@ -48,6 +61,9 @@ public class BehaviorTest {
 
     }
 
+    /**
+     * Test the default builder pattern without setting attributes.
+     */
     @After
     public void tearDown() {
         ch1 = null;
@@ -60,7 +76,7 @@ public class BehaviorTest {
 
     /**
      * Test WorkChain behavior to see if it successfully passes the responsibility
-     * to whoever is next in line,
+     * to whoever is next in line.
      */
     @Test
     public void workChain() {
@@ -86,7 +102,6 @@ public class BehaviorTest {
             fail("Fail: chain should have thrown an exception "
                     + "while passing to next chain in exitChain");
         } catch (Exception e) {
-
             System.out.println(e.getMessage());
         }
 
@@ -106,7 +121,7 @@ public class BehaviorTest {
     /**
      * Run the full chain of responsibilities and see if any exceptions are caught.
      * Check to see if the state of the world is not 'At Risk' when the world exits
-     * out of the chain of responsibilities
+     * out of the chain of responsibilities.
      */
     @Test
     public void fullChainRun() {
@@ -116,7 +131,6 @@ public class BehaviorTest {
         Chain fightChain = new FightChain();
         Chain recoverChain = new RecoverChain();
         Chain exitChain = new ExitChain();
-
         workChain.setNextChain(createChain);
         createChain.setNextChain(fightChain);
         fightChain.setNextChain(recoverChain);

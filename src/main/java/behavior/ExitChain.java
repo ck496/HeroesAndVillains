@@ -29,7 +29,7 @@ public class ExitChain implements Chain {
     /**
      * Sets the next member in the chain to pass the responsibility to.
      * 
-     * @param nextChain
+     * @param nextChain in line
      */
     @Override
     public void setNextChain(Chain nextChain) {
@@ -38,9 +38,9 @@ public class ExitChain implements Chain {
 
     /**
      * Method allows to loops back if the World's state is "At Risk", if the World
-     * is no longer "AtRisk" the program exits and prints final messages
+     * is no longer "AtRisk" the program exits and prints final messages.
      * 
-     * @param aWorld
+     * @param aWorld to do work
      */
     @Override
     public void doWork(World aWorld) {
@@ -73,7 +73,8 @@ public class ExitChain implements Chain {
                 System.out.println("\n\nExitting Chain for " + aWorld.getName() + "....");
             }
         } else {
-            System.out.println("\n\n\t\t\t" + aWorld.getName() + " is still At Risk, continue working");
+            System.out.println(
+                    "\n\n\t\t\t" + aWorld.getName() + " is still At Risk, continue working");
             System.out.println("\nSending world " + aWorld.getName() + "to WorkChain\n");
             this.nextChain.doWork(aWorld);
         }

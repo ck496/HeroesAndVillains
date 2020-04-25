@@ -1,9 +1,18 @@
 package main.java.console;
 
-import main.java.creation.*;
-import main.java.creation.Character;
-import main.java.behavior.*;
 import java.util.Vector;
+
+import main.java.behavior.Chain;
+import main.java.behavior.CreateChain;
+import main.java.behavior.FightChain;
+import main.java.behavior.ExitChain;
+import main.java.behavior.RecoverChain;
+import main.java.behavior.WorkChain;
+
+import main.java.creation.Base;
+import main.java.creation.Character;
+import main.java.creation.Universe;
+import main.java.creation.World;
 
 /**
  * Main Class of the HeroesAndVillans project creates the Heros, Villains,
@@ -11,29 +20,18 @@ import java.util.Vector;
  * up the console for the simulation to run. Main creates all the initial
  * objects needed to start the game.
  * 
- * The simulation will start with a Hero base, a Villain base and 2 empty bases.
- * Heros and Villains will get appropriate names for their type based on a
- * random name generator. They will also be assigned a power based on a random
- * power generator and appropriate strengths and weakness based on their power.
+ * <p>
+ * Read the README.MD for additional information.
  * 
- * Then the heros go through different states of working to save/kill people,
- * get enough points to create a new character and either add it to their base,
- * an allied base if their base is filled or to another world if all the bases
- * in the current world is filled. If a base decides to fight they will fight
- * each member on another team chosen strategically to optimize wining. At the
- * end of the fight everyone that fought levels up by 1 but if a member kills an
- * enemy, member get gets their level +1 + enemy's level. After every fight,
- * fighter have to recover and get 25 health points back, if member level is
- * under 5 the cap is 100 health points. After recover you go to ExitChain where
- * you either loop back or exit the game
+ * <p>
+ * BUILDER DESIGN PATTERN is used to provide a better and more flexible approach
+ * to object creation. Allows you to create objects with or without manual entry
+ * of all the instance variables. This pattern is used to create all the
+ * creation objects like Heros, Villains, Bases, World and the Universe in this
+ * project. Universe has Worlds, Worlds have 4 Bases, Bases have 5 Characters in
+ * each
  * 
- * BUILDER DESIGN PATTERN is used to to provide a better and more flexible
- * approach to object creation. Allows you to create objects with or without
- * manual entry of all the instance variables. This pattern is used to create
- * all the creation objects like Heros, Villains, Bases, World and the Universe
- * in this project. Universe has Worlds, Worlds have 4 Bases, Bases have 5
- * Characters in each
- * 
+ * <p>
  * CHAIN OF RESPONSIBILITY DESIGN PATTERN is used to handle the different
  * behavior and states of all the different objects. A World object is passed to
  * the first class in the chain and it does the work and passes it to the next
@@ -115,8 +113,7 @@ public class Main {
         Chain fightChain = new FightChain();
         Chain recoverChain = new RecoverChain();
         Chain exitChain = new ExitChain();
-        // Set the nextChain to pass the responsibility to once current
-        // chain is done with its work
+        // Set the nextChain to pass the responsibility to once current chain is done
         workChain.setNextChain(createChain);
         createChain.setNextChain(fightChain);
         fightChain.setNextChain(recoverChain);

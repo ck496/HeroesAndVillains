@@ -9,9 +9,11 @@ import java.util.Random;
  * will also be assigned a power based on a random power generator and
  * appropriate strengths and weakness based on their power.
  * 
+ * <p>
  * Villain States { "Attack", "Create", "Fight","Recover", "Move", "Dead" };
  * Hero States: { "Protect", "Create", "Fight","Recover", "Move", "Dead" };
  * 
+ * <p>
  * BUILDER DESIGN PATTERN is used to provide a better and more flexible approach
  * to object creation. Allows you to create objects with or without manual entry
  * of all the instance variables
@@ -32,6 +34,11 @@ public class Character {
     private int level;
     private int health;
 
+    /**
+     * Construct Character form the builder.
+     * 
+     * @param builder to build from
+     */
     public Character(Builder builder) {
         this.isHero = builder.isHero;
         this.state = builder.state;
@@ -53,7 +60,7 @@ public class Character {
     }
 
     /**
-     * Returns the current state;
+     * Returns the current state.
      * 
      * @return the state
      */
@@ -80,7 +87,7 @@ public class Character {
     }
 
     /**
-     * Get the level;
+     * Get the level.
      * 
      * @return the level
      */
@@ -89,7 +96,7 @@ public class Character {
     }
 
     /**
-     * This method lets you update the level as they win battles;
+     * This method lets you update the level as they win battles.
      * 
      * @param level the level to set
      */
@@ -132,7 +139,7 @@ public class Character {
     /**
      * Get weakness of the Character.
      * 
-     * @return the weaknes
+     * @return the weakness
      */
     public String getWeakness() {
         return weakness;
@@ -163,23 +170,22 @@ public class Character {
     public static class Builder {
         // List of first and last names of villains for the random generator to choose
         // from.
-        private String[] villanFirst = { "Death", "Doom", "Revenge", "Ghost",
-                "Rosenheim", "Demon", "Kunigunde von", "Lord",
-                "Rübezahl", "Hell", "Soul", "Petermännchen", "Dark", "Night", "Blood" };
-        private String[] villanLast = { "Destroyer", "Creator", "Worshiper", "Orlamünde",
-                "Reaper", "Collector", "Krampus", "Opressor", "Poltergeist", "Hansel", "Grethel",
+        private String[] villanFirst = { "Death", "Doom", "Revenge", "Ghost", "Rosenheim", "Demon",
+                "Kunigunde von", "Lord", "Rübezahl", "Hell", "Soul", "Petermännchen", "Dark",
+                "Night", "Blood" };
+        private String[] villanLast = { "Destroyer", "Creator", "Worshiper", "Orlamünde", "Reaper",
+                "Collector", "Krampus", "Opressor", "Poltergeist", "Hansel", "Grethel",
                 "Elwetritschen", "Vader", "Bone", "Terror" };
         // List of first and last names of heros for the random generator to choose
         // from.
-        private String[] heroFirst = { "Captain", "Sonic", "Super", "Beast", "Crystal",
-                "Speed", "Light", "Power", "Lord",
-                "Vision", "Hell", "Soul", "Doctor", "Galactic", "Aqua" };
+        private String[] heroFirst = { "Captain", "Sonic", "Super", "Beast", "Crystal", "Speed",
+                "Light", "Power", "Lord", "Vision", "Hell", "Soul", "Doctor", "Galactic", "Aqua" };
         private String[] heroLast = { "Surfer", "Boy", "Women", "Man", "Girl", "Avenger",
-                "Protector", "Defender", "Jedi",
-                "Hansel", "Grethel", "Belsnickel", "Gaurdian", "Slayer", "Thunder" };
+                "Protector", "Defender", "Jedi", "Hansel", "Grethel", "Belsnickel", "Gaurdian",
+                "Slayer", "Thunder" };
         // List of Powers for the random generator to choose from.
-        private String[] powerList = { "Fire", "Water", "Earth", "Electric", "Psychic",
-                "Dark", "Fighting" };
+        private String[] powerList = { "Fire", "Water", "Earth", "Electric", "Psychic", "Dark",
+                "Fighting" };
 
         private String name = "";
         private boolean isHero;
@@ -209,9 +215,9 @@ public class Character {
         /**
          * Random generator.
          * 
-         * @param start
-         * @param end
-         * @return ranInt
+         * @param start value to start from
+         * @param end   value to go till
+         * @return ranInt random int between start and end
          */
         private int randomGen(int start, int end) {
 
@@ -276,8 +282,8 @@ public class Character {
         /**
          * Allows you to pick if its a hero or not.
          * 
-         * @param isHero
-         * @return this
+         * @param isHero boolean
+         * @return this Builder
          */
         public Builder isHero(boolean isHero) {
             this.isHero = isHero;
@@ -288,8 +294,8 @@ public class Character {
         /**
          * Lets you pick a custom name.
          * 
-         * @param aName
-         * @return
+         * @param aName to set
+         * @return this Builder
          */
         public Builder setName(String aName) {
             this.name = aName;
@@ -299,8 +305,8 @@ public class Character {
         /**
          * Set the state.
          * 
-         * @param state
-         * @return this
+         * @param state to set
+         * @return this Builder
          */
         public Builder setState(String state) {
             this.state = state;
@@ -310,8 +316,8 @@ public class Character {
         /**
          * Set the state.
          * 
-         * @param aPower
-         * @return this
+         * @param aPower to set
+         * @return this Builder
          */
         public Builder setPower(String aPower) {
 
@@ -320,10 +326,10 @@ public class Character {
         }
 
         /**
-         * Set The level;
+         * Set The level.
          * 
-         * @param lvl
-         * @return
+         * @param lvl to set
+         * @return this Builder
          */
         public Builder setLevel(int lvl) {
             this.level = lvl;
@@ -333,7 +339,7 @@ public class Character {
         /**
          * constructCharacter() builds and returns a Character obj.
          * 
-         * @return Character
+         * @return Character new
          */
         public Character constructCharacter() {
             // if variables were not set by user set them to

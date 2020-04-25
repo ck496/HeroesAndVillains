@@ -2,14 +2,25 @@ package test.java;
 
 import static org.junit.Assert.assertEquals;
 
+import main.java.creation.Character;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.creation.Character;
-
+/**
+ * TestCharacter runs Unit Test on the Character class. CODE COVERAGE: test.java
+ * achieves 91.1% code coverage for the enter project.
+ * 
+ * @author Chris Kurian
+ * @version 3.0
+ *
+ */
 public class TestCharacter {
     private Character ch1;
 
+    /**
+     * Method to set up before each test.
+     */
     @Before
     public void setUp() {
         ch1 = new Character.Builder().isHero(false)
@@ -18,14 +29,12 @@ public class TestCharacter {
     }
 
     /**
-     * Test the default builder pattern without setting attributes
+     * Test the default builder pattern without setting attributes.
      */
     @Test
     public void builderTestDefault() {
         Character tmp = new Character.Builder().isHero(true)
                 .constructCharacter();
-        String name = tmp.getName();
-        String power = tmp.getPower();
         assertEquals(true, tmp.isHero());
         assertEquals("Protect", tmp.getState());
         assertEquals(1, tmp.getLevel());
@@ -33,7 +42,7 @@ public class TestCharacter {
     }
 
     /**
-     * Test Custom builder with attributes for power etc
+     * Test Custom builder with attributes for power etc.
      */
     @Test
     public void builderTestCustom() {
@@ -54,7 +63,7 @@ public class TestCharacter {
     }
 
     /**
-     * Check to see if health = 0 then state = dead
+     * Check to see if health = 0 then state = dead.
      */
     @Test
     public void testDead() {
