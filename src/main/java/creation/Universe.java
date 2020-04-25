@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 /**
- * Universe class will be the universe in which heros and villains reside.
+ * Universe class will be the universe in which heroes and villains reside.
  * Universe has a name and a HashMap of all the worlds.
  * 
  * <p>

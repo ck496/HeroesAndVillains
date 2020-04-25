@@ -14,9 +14,9 @@ import main.java.creation.World;
  * behavior and states of all the different objects. A World object is passed to
  * the first class in the chain and it does the work and passes it to the next
  * and loops back until the Worlds "State" is no longer at risk
- * WorkChain->CreateChain->FightChain->ExitChain. ExitChain loops back to
- * WorkChain if the World's state is "At Risk", if the World is no longer "At
- * Risk" the program exits and prints final messages
+ * WorkChain->CreateChain->FightChain->RecoverChain->ExitChain. ExitChain loops
+ * back to WorkChain if the World's state is "At Risk", if the World is no
+ * longer "At Risk" the program exits and prints final messages
  * 
  * @author Chris Kurian
  * @version 3.0

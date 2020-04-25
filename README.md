@@ -37,6 +37,7 @@ The Design Patterns in the **bold** will handle the responsibilities listed afte
 
 ## Summary
 The simulation will start with a Hero base, a Villain base and 2 empty bases. The Bases will have 2 characters each. Heroes and Villains will get appropriate names for their type based on a random hero name generator and villain name generator. They will also be assigned a power based on a random power generator and appropriate strengths and weakness based on their power.
+
 Then the heroes and villains go through different states, working to save/kill people, get enough points to create a new character and either add it to their base, an allied base if their base is full or send to another world if all the bases in the current world is filled. If a base decides to fight they will fight each member from another base chosen strategically to optimize wining. At the end of the fight everyone that fought levels up by 1 but if a member kills an enemy, member get gets their level +1 + enemy's level. After every fight, fighter have to recover and get 25 health points back, if member level is under 5 the cap is 100 health points. After recover you go to ExitChain where you either loop back or exit the game
 
 ### BUILDER DESIGN PATTERN
@@ -44,5 +45,9 @@ Then the heroes and villains go through different states, working to save/kill p
 
 ### CHAIN OF RESPONSIBILITY DESIGN PATTERN
 Chain of responsibilities is used to handle the different behavior and states of all the different objects. A World object is passed to the first class in the chain and it does the work and passes it to the next and loops back until the Worlds "State" is no longer at risk.
-* WorkChain->CreateChain->FightChain->ExitChain.
+* WorkChain->CreateChain->FightChain->RecoverChain->ExitChain.
+
 ExitChain loops back to WorkChain if the World's state is "At Risk", if the World is no longer "At Risk" the program exits and prints final messages
+
+### Screen Cast Link
+* https://youtu.be/9ww31fsb_R8

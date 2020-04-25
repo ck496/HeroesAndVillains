@@ -15,7 +15,7 @@ import main.java.creation.Universe;
 import main.java.creation.World;
 
 /**
- * Main Class of the HeroesAndVillans project creates the Heros, Villains,
+ * Main Class of the HeroesAndVillans project creates the heroes, Villains,
  * Bases, World and the Universe where the simulation will take place. Main sets
  * up the console for the simulation to run. Main creates all the initial
  * objects needed to start the game.
@@ -27,7 +27,7 @@ import main.java.creation.World;
  * BUILDER DESIGN PATTERN is used to provide a better and more flexible approach
  * to object creation. Allows you to create objects with or without manual entry
  * of all the instance variables. This pattern is used to create all the
- * creation objects like Heros, Villains, Bases, World and the Universe in this
+ * creation objects like heroes, Villains, Bases, World and the Universe in this
  * project. Universe has Worlds, Worlds have 4 Bases, Bases have 5 Characters in
  * each
  * 
@@ -36,9 +36,9 @@ import main.java.creation.World;
  * behavior and states of all the different objects. A World object is passed to
  * the first class in the chain and it does the work and passes it to the next
  * and loops back until the Worlds "State" is no longer at risk
- * WorkChain->CreateChain->FightChain->ExitChain. ExitChain loops back to
- * WorkChain if the World's state is "At Risk", if the World is no longer "At
- * Risk" the program exits and prints final messages
+ * WorkChain->CreateChain->FightChain->RecoverChain->ExitChain. ExitChain loops
+ * back to WorkChain if the World's state is "At Risk", if the World is no
+ * longer "At Risk" the program exits and prints final messages
  * 
  * @author Chris Kurian
  * @version 2.0
@@ -52,7 +52,7 @@ public class Main {
      * @param args String
      */
     public static void main(String[] args) {
-        System.out.println("Welcome to the Heros and Villans Universe! "
+        System.out.println("Welcome to the heroes and Villans Universe! "
                 + "\n\nWhich side will you choose?? \nWho will emerge "
                 + "victorious? \nWhat will be the fate of the universe?"
                 + "\n\nFind out soon..........\n\n");
@@ -68,7 +68,7 @@ public class Main {
                 .setMemberVector(villainVector)
                 .baseConstruct();
 
-        // HEROS -create 2 heros and place them in a base named "Avengers"
+        // heroes -create 2 heros and place them in a base named "Avengers"
         Character hero1 = new Character.Builder().isHero(true).constructCharacter();
         Character hero2 = new Character.Builder().isHero(true).constructCharacter();
         Vector<Character> heroVector = new Vector<Character>(5);
