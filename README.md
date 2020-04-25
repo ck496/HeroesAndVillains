@@ -11,8 +11,7 @@ The listed patterns will work together one will handle the creational aspect of 
 
  ### Chain of Responsibilities:
 * Will handle all the interactions/communications between characters.
-* Dialog, battle, attack, post-fight interactions will ala be handled with chain of responsibilities design
-* Issue interactions with several objects without specifying the receiver explicitly.
+* Dialog, work, battle, recover, post-fight interactions will all be handled with chain of responsibilities design
 
 
 ## Requirements
